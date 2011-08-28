@@ -1,0 +1,11 @@
+key 42    VOLUME_UP		    WAKE
+key 58    VOLUME_DOWN		WAKE
+key 50    HOME              
+key 26    POWER             WAKE_DROPPED
+key 34    BACK              
+key 57    SEARCH            
+key 49    MENU   		    
+key 25    DPAD_UP           WAKE_DROPPED
+key 41    DPAD_DOWN         WAKE_DROPPED
+key 33    DPAD_CENTER       WAKE_DROPPED
+key 10    UNKNOWN     	    WAKE_DROPPED
