@@ -34,8 +34,8 @@ else
 fi
 
 DIRS="
-app
 bin
+cameradata
 etc/wifi
 firmware
 lib/egl
@@ -48,36 +48,31 @@ for DIR in $DIRS; do
 done
 
 FILES="
-bin/pvrsrvinit
-bin/pppd_runner
-bin/rild
-bin/sensorcalibutil_yamaha
-bin/sensorstatutil_yamaha
-bin/sensorserver_yamaha
 bin/BCM4329B1_002.002.023.0746.0818.hcd
-bin/logwrapper
-bin/netcfg
 
 etc/wifi/nvram_net.txt
 etc/wifi/nvram_mfg.txt
 etc/wifi/bcm4329_aps.bin
 etc/wifi/bcm4329_mfg.bin
 etc/wifi/bcm4329_sta.bin
+lib/libnetutils.so
+
+bin/tvoutserver
+cameradata/datapattern_420sp.yuv
+cameradata/datapattern_front_420sp.yuv
+firmware/RS_M5LS.bin
 
 lib/libgps.so
 lib/libsecgps.so
+
+bin/pppd_runner
+bin/rild
 lib/libril.so
 lib/libsec-ril40.so
 lib/libsec-ril40-cdma.so
 lib/libsecril-client.so
 
-lib/libnetutils.so
-
-lib/libQmageDecoder.so
-lib/libquramgifmovie.so
-lib/libquramimagecodec.so
-lib/libquramvdecoder.so
-
+bin/pvrsrvinit
 lib/egl/libEGL_POWERVR_SGX540_120.so
 lib/egl/libGLES_android.so
 lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so
@@ -90,16 +85,21 @@ lib/libpvrANDROID_WSEGL.so
 lib/libglslcompiler.so
 lib/libPVRScopeServices.so
 
+bin/sensorcalibutil_yamaha
+bin/sensorstatutil_yamaha
+bin/sensorserver_yamaha
 lib/libsensor_yamaha.so
 lib/libsensor_yamaha_test.so
 lib/libms3c_yamaha.so
+lib/hw/sensors.default.so
+
 lib/hw/copybit.s5pc110.so
 lib/hw/lights.s5pc110.so
-lib/hw/sensors.default.so
 lib/hw/gralloc.s5pc110.so
 
 bin/playlpm
 bin/charging_mode
+lib/libQmageDecoder.so
 media/battery_charging_5.qmg
 media/battery_charging_10.qmg
 media/battery_charging_15.qmg
@@ -120,7 +120,28 @@ media/battery_charging_85.qmg
 media/battery_charging_90.qmg
 media/battery_charging_95.qmg
 media/battery_charging_100.qmg
+media/wc_battery_charging_5.qmg
+media/wc_battery_charging_10.qmg
+media/wc_battery_charging_15.qmg
+media/wc_battery_charging_20.qmg
+media/wc_battery_charging_25.qmg
+media/wc_battery_charging_30.qmg
+media/wc_battery_charging_35.qmg
+media/wc_battery_charging_40.qmg
+media/wc_battery_charging_45.qmg
+media/wc_battery_charging_50.qmg
+media/wc_battery_charging_55.qmg
+media/wc_battery_charging_60.qmg
+media/wc_battery_charging_65.qmg
+media/wc_battery_charging_70.qmg
+media/wc_battery_charging_75.qmg
+media/wc_battery_charging_80.qmg
+media/wc_battery_charging_85.qmg
+media/wc_battery_charging_90.qmg
+media/wc_battery_charging_95.qmg
+media/wc_battery_charging_100.qmg
 media/chargingwarning.qmg
+media/chargingwarning_auth.qmg
 media/Disconnected.qmg
 "
 
@@ -169,7 +190,8 @@ PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/etc/wifi/nvram_mfg.txt:system/etc/wifi/nvram_mfg.txt \\
     vendor/samsung/__DEVICE__/proprietary/etc/wifi/bcm4329_aps.bin:system/etc/wifi/bcm4329_aps.bin \\
     vendor/samsung/__DEVICE__/proprietary/etc/wifi/bcm4329_mfg.bin:system/etc/wifi/bcm4329_mfg.bin \\
-    vendor/samsung/__DEVICE__/proprietary/etc/wifi/bcm4329_sta.bin:system/etc/wifi/bcm4329_sta.bin
+    vendor/samsung/__DEVICE__/proprietary/etc/wifi/bcm4329_sta.bin:system/etc/wifi/bcm4329_sta.bin \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libnetutils.so:system/lib/libnetutils.so
 
 #
 # Display (3D)
@@ -218,22 +240,10 @@ PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/lib/libril.so:system/lib/libril.so
 
 #
-# OMX
-#
-PRODUCT_COPY_FILES += \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libQmageDecoder.so:system/lib/libQmageDecoder.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libquramgifmovie.so:system/lib/libquramgifmovie.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libquramimagecodec.so:system/lib/libquramimagecodec.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libquramvdecoder.so:system/lib/libquramvdecoder.so
-
-#
-# Other stuff
+# Bluetooth
 #
 PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/bin/BCM4329B1_002.002.023.0746.0818.hcd:system/bin/BCM4329B1_002.002.023.0746.0818.hcd \\
-    vendor/samsung/__DEVICE__/proprietary/bin/logwrapper:system/bin/logwrapper \\
-    vendor/samsung/__DEVICE__/proprietary/bin/netcfg:system/bin/netcfg \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libnetutils.so:system/lib/libnetutils.so
 
 #
 # Files for battery charging screen
@@ -241,6 +251,7 @@ PRODUCT_COPY_FILES += \\
 PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/bin/playlpm:system/bin/playlpm \\
     vendor/samsung/__DEVICE__/proprietary/bin/charging_mode:system/bin/charging_mode \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libQmageDecoder.so:system/lib/libQmageDecoder.so \\
     vendor/samsung/__DEVICE__/proprietary/media/battery_charging_5.qmg:system/media/battery_charging_5.qmg \\
     vendor/samsung/__DEVICE__/proprietary/media/battery_charging_10.qmg:system/media/battery_charging_10.qmg \\
     vendor/samsung/__DEVICE__/proprietary/media/battery_charging_15.qmg:system/media/battery_charging_15.qmg \\
@@ -261,7 +272,28 @@ PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/media/battery_charging_90.qmg:system/media/battery_charging_90.qmg \\
     vendor/samsung/__DEVICE__/proprietary/media/battery_charging_95.qmg:system/media/battery_charging_95.qmg \\
     vendor/samsung/__DEVICE__/proprietary/media/battery_charging_100.qmg:system/media/battery_charging_100.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_5.qmg:system/media/wc_battery_charging_5.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_10.qmg:system/media/wc_battery_charging_10.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_15.qmg:system/media/wc_battery_charging_15.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_20.qmg:system/media/wc_battery_charging_20.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_25.qmg:system/media/wc_battery_charging_25.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_30.qmg:system/media/wc_battery_charging_30.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_35.qmg:system/media/wc_battery_charging_35.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_40.qmg:system/media/wc_battery_charging_40.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_45.qmg:system/media/wc_battery_charging_45.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_50.qmg:system/media/wc_battery_charging_50.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_55.qmg:system/media/wc_battery_charging_55.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_60.qmg:system/media/wc_battery_charging_60.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_65.qmg:system/media/wc_battery_charging_65.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_70.qmg:system/media/wc_battery_charging_70.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_75.qmg:system/media/wc_battery_charging_75.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_80.qmg:system/media/wc_battery_charging_80.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_85.qmg:system/media/wc_battery_charging_85.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_90.qmg:system/media/wc_battery_charging_90.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_95.qmg:system/media/wc_battery_charging_95.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/wc_battery_charging_100.qmg:system/media/wc_battery_charging_100.qmg \\
     vendor/samsung/__DEVICE__/proprietary/media/chargingwarning.qmg:system/media/chargingwarning.qmg \\
+    vendor/samsung/__DEVICE__/proprietary/media/chargingwarning_auth.qmg:system/media/chargingwarning_auth.qmg \\
     vendor/samsung/__DEVICE__/proprietary/media/Disconnected.qmg:system/media/Disconnected.qmg
 
 EOF

@@ -1,5 +1,3 @@
-ifeq ($(TARGET_DEVICE),charge)
-
 LOCAL_PATH:= $(call my-dir)
 
 
@@ -51,4 +49,3 @@ ifeq ($(BOARD_HAVE_BLUETOOTH),true)
 endif
 include $(BUILD_SHARED_LIBRARY)
 
-endif
