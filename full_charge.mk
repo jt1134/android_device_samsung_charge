@@ -142,24 +142,24 @@ PRODUCT_COPY_FILES += \
      device/samsung/charge/prebuilt/usr/keychars/qwerty2.kcm.bin:system/usr/keychars/qwerty2.kcm.bin  
 
 # These are the OpenMAX IL configuration files
-PRODUCT_COPY_FILES += \
-    device/samsung/charge/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry
+#PRODUCT_COPY_FILES += \
+#    device/samsung/charge/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry
 
 # These are the OpenMAX IL modules
-PRODUCT_PACKAGES += \
-    libSEC_OMX_Core \
-    libOMX.SEC.AVC.Decoder \
-    libOMX.SEC.M4V.Decoder \
-    libOMX.SEC.M4V.Encoder \
-    libOMX.SEC.AVC.Encoder
+#PRODUCT_PACKAGES += \
+#    libSEC_OMX_Core \
+#    libOMX.SEC.AVC.Decoder \
+#    libOMX.SEC.M4V.Decoder \
+#    libOMX.SEC.M4V.Encoder \
+#    libOMX.SEC.AVC.Encoder
 
 # Libs
 PRODUCT_PACKAGES += \
-    sec_mm \
-    libstagefrighthw \
-    copybit.s5pc110 \
-    lights.s5pc110 \
-    overlay.s5pc110
+    lights.s5pc110
+#    sec_mm \
+#    overlay.s5pc110
+#    libstagefrighthw \
+#    copybit.s5pc110 \
 #    gps.s5pc110
 
 # Kernel
