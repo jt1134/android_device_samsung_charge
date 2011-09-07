@@ -28,17 +28,17 @@ BOARD_UMS_LUNFILE := "/sys/devices/platform/s3c-usbgadget/gadget/lun0/file"
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/lun"
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 
-USE_CAMERA_STUB := true
-#DEFAULT_FB_NUM := 0
-#BUILD_PV_VIDEO_ENCODERS := 1
-#BOARD_V4L2_DEVICE := /dev/video1
-#BOARD_CAMERA_DEVICE := /dev/video0
+USE_CAMERA_STUB := false
+DEFAULT_FB_NUM := 0
+BUILD_PV_VIDEO_ENCODERS := 1
+BOARD_V4L2_DEVICE := /dev/video1
+BOARD_CAMERA_DEVICE := /dev/video0
+BOARD_SECOND_CAMERA_DEVICE := /dev/video2
 
 TARGET_NO_BOOTLOADER := true
 TARGET_BOOTLOADER_BOARD_NAME := s5pc110
 
-TARGET_BOARD := SCH-I510
-TARGET_BOARD_PLATFORM := s5pc110
+TARGET_BOARD_PLATFORM := s5pv210
 TARGET_BOARD_PLATFORM_GPU := POWERVR_SGX540_120
 
 # ARMv7-A Cortex-A8 architecture
@@ -54,22 +54,15 @@ ANDROID_ARM_LINKER := true
 BOARD_USES_GENERIC_AUDIO := false
 TARGET_PROVIDES_LIBAUDIO := true
 
-# The GL userspace driver is partially broken, so we set this to get a functional UI.
-BOARD_NO_RGBX_8888 := true
-
-# We need to use the old sensors libraries, as they were changed in Gingerbread.
-TARGET_USES_OLD_LIBSENSORS_HAL := true
-
 # WiFi related defines
 BOARD_WPA_SUPPLICANT_DRIVER := WEXT
 WPA_SUPPLICANT_VERSION := VER_0_6_X
 BOARD_WLAN_DEVICE := bcm4329
 WIFI_DRIVER_MODULE_PATH := "/lib/modules/dhd.ko"
 WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/etc/wifi/bcm4329_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt dhd_watchdog_ms=10 dhd_poll=1"
-WIFI_DRIVER_APS_FIRMWARE_NAME := "/system/etc/wifi/bcm4329_aps.bin"
-WIFI_DRIVER_STA_FIRMWARE_NAME := "/system/etc/wifi/bcm4329_sta.bin"
+WIFI_DRIVER_FW_AP_PATH := "/system/etc/wifi/bcm4329_aps.bin"
+WIFI_DRIVER_FW_STA_PATH := "/system/etc/wifi/bcm4329_sta.bin"
 WIFI_DRIVER_MODULE_NAME := "dhd"
-BOARD_WEXT_NO_COMBO_SCAN := true
 
 #USB tethering
 RNDIS_DEVICE := "/sys/devices/virtual/sec/switch/tethering"
@@ -110,6 +103,3 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BML_BOOT := "/dev/block/bml8"
 BOARD_BML_RECOVERY := "/dev/block/bml9"
 
-BOARD_USE_USB_MASS_STORAGE_SWITCH := true
-#BOARD_USES_GPSSHIM := true
-#BOARD_GPS_LIBRARIES := libsecgps libgps

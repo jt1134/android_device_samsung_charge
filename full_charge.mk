@@ -143,7 +143,7 @@ PRODUCT_COPY_FILES += \
 
 # These are the OpenMAX IL configuration files
 #PRODUCT_COPY_FILES += \
-#    device/samsung/charge/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry
+#    device/samsung/aries-common/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry
 
 # These are the OpenMAX IL modules
 #PRODUCT_PACKAGES += \
@@ -154,13 +154,9 @@ PRODUCT_COPY_FILES += \
 #    libOMX.SEC.AVC.Encoder
 
 # Libs
-PRODUCT_PACKAGES += \
-    lights.s5pc110
+#PRODUCT_PACKAGES += \
 #    sec_mm \
-#    overlay.s5pc110
-#    libstagefrighthw \
-#    copybit.s5pc110 \
-#    gps.s5pc110
+#    libstagefrighthw
 
 # Kernel
 ifeq ($(TARGET_PREBUILT_KERNEL),)
