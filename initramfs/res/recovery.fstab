@@ -1,0 +1,25 @@
+[device]
+# mount point	       fstype	        device			format option	mount option device2
+/boot			rfs		boot			default		default
+/recovery		rfs		recovery		default		default
+/efs			rfs		/dev/block/stl3		default		default
+/system			rfs		/dev/block/stl9		default		default
+/dbdata			rfs		/dev/block/stl11	rfs16		default
+/data			rfs		/dev/block/mmcblk0p1	rfs32_16	default
+/preinstall		rfs		/dev/block/mmcblk0p2	rfs16_16	default
+/cache			rfs		/dev/block/mmcblk0p3	rfs16_16	default
+/ltemodem		rfs		ltemodem		default		default
+/mnt/sdcard		vfat		/dev/block/mmcblk1p1	default		default		/dev/block/mmcblk1
+
+
+[format]
+#index		option
+rfs16_16 	"/sbin/fat.format -F 16 -s 32 -S 512"
+rfs16		"/sbin/fat.format -F 16 -s 1 -S 4096"
+rfs32_16	"sbin/fat.format -F 32 -s 32 -S 512"
+rfs32		"/sbin/fat.format -F 32 -s 4 -S 4096"
+
+[mount]
+#index		flags							options
+rfs_opt1	nosuid,noatime,nodev,nodiratime	"check=no"
+rfs_opt2	ro,nosuid,nodev					"check=no"

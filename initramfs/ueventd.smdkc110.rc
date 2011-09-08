@@ -1,0 +1,49 @@
+
+/dev/pvrsrvkm             0666   system     system
+/dev/video0               0660   system     camera
+/dev/video1               0660   system     camera
+/dev/video2               0660   system     camera
+/dev/video14              0660   system     system
+/dev/video20              0660   system     system
+/dev/video21              0660   system     system
+/dev/video22              0660   system     system
+/dev/s3c-jpg              0660   system     camera
+/dev/s3c-mem              0660   system     system
+/dev/s3c-mfc              0660   system     graphics
+
+# for copybit
+/dev/pmem_gpu1            0660   system     graphics
+/dev/s3c_bc               0660   system     graphics
+
+/dev/modem_ctl            0660   radio      radio
+/dev/modem_fmt            0660   radio      radio
+/dev/modem_rfs            0660   radio      radio
+/dev/s3c2410_serial3      0660   radio      radio
+/dev/block/mtdblock5      0660   radio      radio
+/dev/mtd/mtd5ro           0660   radio      radio
+
+# for Sensor HAL
+/dev/akm8973              0660   system     system
+/dev/accelerometer        0660   system     system
+
+# for GPS
+/dev/s3c2410_serial1      0600   gps        gps
+
+#for vibrator
+/dev/tspdrv		  0660	 root	    shell
+
+#for PMEM_adsp
+/dev/pmem_adsp		  0660	 system	    audio 
+
+#for PMEM 
+/dev/pmem		0660   system     system
+
+# for ULP Audio
+/dev/s5p-rp               0660   system     audio
+/dev/s5p-rp_ctrl          0660   system     audio
+
+#for storage 
+/dev/storage              0650   radio      radio
+
+# permission for ddc
+/dev/i2c-1			660	system	graphics 

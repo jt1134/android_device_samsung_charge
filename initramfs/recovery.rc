@@ -1,0 +1,100 @@
+on early-init
+    start ueventd
+
+on init
+    export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
+    export LD_LIBRARY_PATH /vendor/lib:/system/lib
+    export ANDROID_ROOT /system
+    export ANDROID_DATA /data
+    export EXTERNAL_STORAGE /mnt/sdcard
+
+    symlink /system/etc /etc
+
+    mkdir /sdcard
+    mkdir /preinstall
+    mkdir /system
+    mkdir /data
+    mkdir /cache
+    mkdir /efs
+    mkdir /tmp
+    mkdir /dbdata
+
+    mkdir /mnt 0775 root root
+
+    #mount /tmp /tmp tmpfs
+
+# create mountpoints
+    mkdir /mnt 0775 root system
+    mkdir /mnt/sdcard 0000 system system   
+ 
+
+on early-fs
+
+    # rfs drivers
+    insmod /lib/modules/fsr.ko
+    insmod /lib/modules/fsr_stl.ko
+    insmod /lib/modules/rfs_glue.ko
+    insmod /lib/modules/rfs_fat.ko
+
+    # parameter block
+    insmod /lib/modules/j4fs.ko
+    insmod /lib/modules/param.ko
+    insmod /lib/modules/wtlfota_dpram.ko
+
+
+on fs
+    mount tmpfs tmpfs /tmp
+    #mount rfs /dev/block/stl9 /system check=no
+    mount rfs /dev/block/stl10 /system check=no
+
+    #temp
+    chown root root /sbin/fat.format
+    chmod 750 /sbin/fat.format
+
+# SEC_DMCRYPT for MC_CRYPT_ROOT before apply_disk_policy or apply_sec_devenc_init
+    #chown system system /efs
+    #chown radio radio /efs
+    chown radio system /efs
+    chmod 0771 /efs
+    mount rfs /dev/block/stl3 /efs nosuid nodev check=no
+
+    exec apply_disk_policy
+    mkdir /mnt/.lfs 0755 root root
+    mount j4fs /dev/block/stl7 /mnt/.lfs
+    insmod /lib/modules/param.ko
+
+on post-fs
+    mount rootfs rootfs / ro remount
+
+    write /proc/sys/kernel/panic_on_oops 1
+    write /proc/sys/kernel/hung_task_timeout_secs 0
+    write /proc/cpu/alignment 4
+    write /proc/sys/kernel/sched_latency_ns 10000000
+    write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
+    write /proc/sys/kernel/sched_compat_yield 1
+    write /proc/sys/kernel/sched_child_runs_first 0
+	
+on boot
+
+    ifup lo
+    hostname localhost
+    domainname localdomain
+
+    class_start default
+
+service ueventd /sbin/ueventd
+    critical
+
+service console /system/bin/sh
+    console
+
+service recovery /sbin/recovery
+
+service adbd /sbin/adbd recovery
+#	disabled
+
+on property:persist.service.adb.enable=1
+    start adbd
+
+#on property:persist.service.adb.enable=0
+#    stop adbd
