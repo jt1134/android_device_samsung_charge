@@ -67,6 +67,8 @@ WIFI_DRIVER_MODULE_NAME := "dhd"
 #USB tethering
 RNDIS_DEVICE := "/sys/devices/virtual/sec/switch/tethering"
 
+BOARD_USES_PREBUILT_LIBNETUTILS := true
+
 # Bluetooth related defines
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_HAVE_BLUETOOTH := true
