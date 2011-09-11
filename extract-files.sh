@@ -79,6 +79,7 @@ lib/libtvoutservice.so
 
 bin/pppd_runner
 bin/rild
+etc/cellcache.db
 lib/libnetutils.so
 lib/libril.so
 lib/libsec-ril40.so
@@ -271,6 +272,7 @@ PRODUCT_COPY_FILES += \\
 PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/bin/pppd_runner:system/bin/pppd_runner \\
     vendor/samsung/__DEVICE__/proprietary/bin/rild:system/bin/rild \\
+    vendor/samsung/__DEVICE__/proprietary/etc/cellcache.db:system/etc/cellcache.db \\
     vendor/samsung/__DEVICE__/proprietary/lib/libnetutils.so:system/lib/libnetutils.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libsec-ril40.so:system/lib/libsec-ril40.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libsec-ril40-cdma.so:system/lib/libsec-ril40-cdma.so \\

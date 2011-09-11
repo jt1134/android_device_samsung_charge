@@ -82,7 +82,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # For mobiledatainterfaces
 PRODUCT_PROPERTY_OVERRIDES += \
-    mobiledata.interfaces=eth0,ppp0
+    mobiledata.interfaces=eth0,ppp0,pdpbr0,svnet0,hrpd0
 
 # charge uses high-density artwork where available
 PRODUCT_LOCALES := hdpi
@@ -127,6 +127,11 @@ PRODUCT_COPY_FILES += \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml \
     device/samsung/charge/prebuilt/etc/permissions/android.hardware.telephony.ehrpd.xml:system/etc/permissions/android.hardware.telephony.ehrpd.xml \
     device/samsung/charge/prebuilt/etc/permissions/android.hardware.telephony.lte.xml:system/etc/permissions/android.hardware.telephony.lte.xml
+
+# apn config
+PRODUCT_COPY_FILES += \
+    device/samsung/charge/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml \
+    device/samsung/charge/prebuilt/etc/cdma-carriers-conf.xml:system/etc/cdma-carriers-conf.xml
 
 # Keylayout / Keychars
 PRODUCT_COPY_FILES += \
