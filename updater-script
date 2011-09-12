@@ -1,4 +1,4 @@
-run_program("/sbin/mount", "-t", "rfs", "-ollw,check=no,nosuid,nodev", "/dev/block/stl9", "/system");
+run_program("/sbin/mount", "-t", "rfs", "-ollw,check=no,nosuid,nodev", "/dev/block/stl10", "/system");
 delete_recursive("/system");
 package_extract_dir("system", "/system");
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
