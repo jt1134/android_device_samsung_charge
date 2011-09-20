@@ -106,5 +106,5 @@ BOARD_BML_BOOT := "/dev/block/bml8"
 BOARD_BML_RECOVERY := "/dev/block/bml9"
 
 # Override cyanogen squisher to customize our update zip package
-TARGET_CUSTOM_RELEASETOOL := ./device/samsung/vzwtab/releasetools/squisher
+TARGET_CUSTOM_RELEASETOOL := ./device/samsung/charge/releasetools/squisher
 
