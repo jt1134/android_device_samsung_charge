@@ -114,6 +114,10 @@ lib/hw/lights.s5pc110.so
 lib/hw/gralloc.s5pc110.so
 lib/hw/overlay.s5pc110.so
 
+bin/vold
+etc/vold.conf
+etc/vold.fstab
+
 bin/playlpm
 bin/charging_mode
 lib/libQmageDecoder.so
@@ -235,8 +239,8 @@ PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/lib/libsensor_yamaha_test.so:system/lib/libsensor_yamaha_test.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libsensorservice.so:system/lib/libsensorservice.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/hw/copybit.s5pc110.so:system/lib/hw/copybit.s5pc110.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/hw/lights.s5pc110.so:system/lib/hw/lights.s5pc110.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/hw/overlay.s5pc110.so:system/lib/hw/overlay.s5pc110.so
+    vendor/samsung/__DEVICE__/proprietary/lib/hw/lights.s5pc110.so:system/lib/hw/lights.s5pc110.so
+#    vendor/samsung/__DEVICE__/proprietary/lib/hw/overlay.s5pc110.so:system/lib/hw/overlay.s5pc110.so
 
 #
 # Camera
@@ -285,6 +289,14 @@ PRODUCT_COPY_FILES += \\
 PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/bin/gpsd:system/bin/gpsd \\
     vendor/samsung/__DEVICE__/proprietary/lib/hw/gps.s5pc110.so:system/lib/hw/gps.s5pc110.so
+
+#
+# Vold (sdcard)
+#
+PRODUCT_COPY_FILES += \\
+    vendor/samsung/__DEVICE__/proprietary/bin/vold:system/bin/vold \\
+    vendor/samsung/__DEVICE__/proprietary/etc/vold.conf:system/etc/vold.conf \\
+    vendor/samsung/__DEVICE__/proprietary/etc/vold.fstab:system/etc/vold.fstab
 
 #
 # Files for battery charging screen
