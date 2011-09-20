@@ -642,11 +642,6 @@ service vold /system/bin/vold
     ioprio be 2
     socket enc_report stream 0660 root mount
 
-service notified_event /system/bin/notified_event
-    user system
-    group system
-    socket notified_event stream 0660 root system
-
 service netd /system/bin/netd
     socket netd stream 0660 root system
 
@@ -747,11 +742,6 @@ service keystore /system/bin/keystore /data/misc/keystore
     group keystore
     socket keystore stream 666
 
-service immvibed /system/bin/immvibed
-    user shell
-    group shell
-    oneshot
-
 service dumpstate /system/bin/dumpstate -s
     socket dumpstate stream 0660 shell log
     disabled
@@ -778,7 +768,4 @@ service Pgps-Daemon /system/bin/RXN_IntApp
 service tvout /system/bin/tvoutserver
     user system
     group graphics
-
-service audiotunemode /system/bin/audiotunemode    
-    oneshot
-    
+  

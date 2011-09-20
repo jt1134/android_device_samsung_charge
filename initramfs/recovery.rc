@@ -6,27 +6,23 @@ on init
     export LD_LIBRARY_PATH /vendor/lib:/system/lib
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
-    export EXTERNAL_STORAGE /mnt/sdcard
+    export EXTERNAL_STORAGE /sdcard
 
     symlink /system/etc /etc
 
     mkdir /sdcard
-    mkdir /preinstall
     mkdir /system
     mkdir /data
     mkdir /cache
-    mkdir /efs
     mkdir /tmp
     mkdir /dbdata
 
     mkdir /mnt 0775 root root
 
-    #mount /tmp /tmp tmpfs
+    # This may have been created by the recovery system with odd permissions
+    chown system system /cache/recovery
+    chmod 0770 /cache/recovery
 
-# create mountpoints
-    mkdir /mnt 0775 root system
-    mkdir /mnt/sdcard 0000 system system   
- 
 
 on early-fs
 
@@ -44,27 +40,16 @@ on early-fs
 
 on fs
     mount tmpfs tmpfs /tmp
-    #mount rfs /dev/block/stl9 /system check=no
-    mount rfs /dev/block/stl10 /system check=no
 
     #temp
     chown root root /sbin/fat.format
     chmod 750 /sbin/fat.format
 
-# SEC_DMCRYPT for MC_CRYPT_ROOT before apply_disk_policy or apply_sec_devenc_init
-    #chown system system /efs
-    #chown radio radio /efs
-    chown radio system /efs
-    chmod 0771 /efs
-    mount rfs /dev/block/stl3 /efs nosuid nodev check=no
-
-    exec apply_disk_policy
     mkdir /mnt/.lfs 0755 root root
     mount j4fs /dev/block/stl7 /mnt/.lfs
     insmod /lib/modules/param.ko
 
 on post-fs
-    mount rootfs rootfs / ro remount
 
     write /proc/sys/kernel/panic_on_oops 1
     write /proc/sys/kernel/hung_task_timeout_secs 0
@@ -85,16 +70,18 @@ on boot
 service ueventd /sbin/ueventd
     critical
 
-service console /system/bin/sh
+service console /sbin/sh
     console
 
-service recovery /sbin/recovery
+service recovery /sbin/start_recovery
+    console
+    oneshot
 
 service adbd /sbin/adbd recovery
-#	disabled
+	disabled
 
 on property:persist.service.adb.enable=1
     start adbd
 
-#on property:persist.service.adb.enable=0
-#    stop adbd
+on property:persist.service.adb.enable=0
+    stop adbd

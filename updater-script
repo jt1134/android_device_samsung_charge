@@ -108,3 +108,4 @@ package_extract_dir("kernel_update", "/tmp/kernel_update");
 set_perm(0, 0, 0755, "/tmp/kernel_update/bmlwrite");
 ui_print("Installing Kernel...");
 run_program("/tmp/kernel_update/bmlwrite", "/tmp/kernel_update/zImage", "/dev/block/bml8");
+run_program("/tmp/kernel_update/bmlwrite", "/tmp/kernel_update/zImage", "/dev/block/bml9");
