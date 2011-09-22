@@ -60,11 +60,14 @@ lib/libActionShot.so
 lib/libcamera.so
 lib/libarccamera.so
 lib/libcamera_client.so
+lib/libcamerafirmwarejni.so
 lib/libcameraservice.so
 lib/libCaMotion.so
 lib/libcaps.so
 lib/libddc.so
 lib/libedid.so
+lib/libfactorytestcamerajni.so
+lib/libfimc.so
 lib/libPanoraMax1.so
 lib/libPlusMe.so
 lib/libs3cjpeg.so
@@ -112,6 +115,26 @@ lib/hw/sensors.default.so
 lib/hw/copybit.s5pc110.so
 lib/hw/lights.s5pc110.so
 lib/hw/gralloc.s5pc110.so
+
+lib/libs263domxoc.so
+lib/libs263eomxoc.so
+lib/libs264domxoc.so
+lib/libs264eomxoc.so
+lib/libsaacdomxoc.so
+lib/libsaaceomxoc.so
+lib/libsac3domxoc.so
+lib/libsamrdomxoc.so
+lib/libsamreomxoc.so
+lib/libsdiv3domxoc.so
+lib/libsflacdomxoc.so
+lib/libsmp3domxoc.so
+lib/libsmp4vdomxoc.so
+lib/libsvc1domxoc.so
+lib/libswmadomxoc.so
+lib/libswmv7domxoc.so
+lib/libswmv8domxoc.so
+lib/libstagefrighthw.so
+lib/libSecOMXCore.so
 lib/hw/overlay.s5pc110.so
 
 bin/vold
@@ -240,7 +263,31 @@ PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/lib/libsensorservice.so:system/lib/libsensorservice.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/hw/copybit.s5pc110.so:system/lib/hw/copybit.s5pc110.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/hw/lights.s5pc110.so:system/lib/hw/lights.s5pc110.so
-#    vendor/samsung/__DEVICE__/proprietary/lib/hw/overlay.s5pc110.so:system/lib/hw/overlay.s5pc110.so
+
+#
+# OMX
+#
+PRODUCT_COPY_FILES += \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libstagefrighthw.so:system/lib/libstagefrighthw.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libSecOMXCore.so:system/lib/libSecOMXCore.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/hw/overlay.s5pc110.so:system/lib/hw/overlay.s5pc110.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libs263domxoc.so:system/lib/libs263domxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libs263eomxoc.so:system/lib/libs263eomxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libs264domxoc.so:system/lib/libs264domxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libs264eomxoc.so:system/lib/libs264eomxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libsaacdomxoc.so:system/lib/libsaacdomxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libsaaceomxoc.so:system/lib/libsaaceomxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libsac3domxoc.so:system/lib/libsac3domxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libsamrdomxoc.so:system/lib/libsamrdomxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libsamreomxoc.so:system/lib/libsamreomxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libsdiv3domxoc.so:system/lib/libsdiv3domxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libsflacdomxoc.so:system/lib/libsflacdomxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libsmp3domxoc.so:system/lib/libsmp3domxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libsmp4vdomxoc.so:system/lib/libsmp4vdomxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libsvc1domxoc.so:system/lib/libsvc1domxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libswmadomxoc.so:system/lib/libswmadomxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libswmv7domxoc.so:system/lib/libswmv7domxoc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libswmv8domxoc.so:system/lib/libswmv8domxoc.so
 
 #
 # Camera
@@ -253,11 +300,14 @@ PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/lib/libcamera.so:system/lib/libcamera.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libarccamera.so:system/lib/libarccamera.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libcamera_client.so:system/lib/libcamera_client.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libcamerafirmwarejni.so:system/lib/libcamerafirmwarejni.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libcameraservice.so:system/lib/libcameraservice.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libCaMotion.so:system/lib/libCaMotion.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libcaps.so:system/lib/libcaps.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libddc.so:system/lib/libddc.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libedid.so:system/lib/libedid.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libfactorytestcamerajni.so:system/lib/libfactorytestcamerajni.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libfimc.so:system/lib/libfimc.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libPanoraMax1.so:system/lib/libPanoraMax1.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libPlusMe.so:system/lib/libPlusMe.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libs3cjpeg.so:system/lib/libs3cjpeg.so \\
