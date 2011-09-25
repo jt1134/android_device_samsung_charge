@@ -37,6 +37,8 @@ DIRS="
 bin
 cameradata
 etc/wifi
+firmware/SA
+firmware/SG
 lib/egl
 lib/hw
 media
@@ -56,6 +58,8 @@ etc/wifi/bcm4329_sta.bin
 bin/tvoutserver
 cameradata/datapattern_420sp.yuv
 cameradata/datapattern_front_420sp.yuv
+firmware/SA/RS_M5LS.bin
+firmware/SG/RS_M5LS.bin
 lib/libActionShot.so
 lib/libcamera.so
 lib/libarccamera.so
@@ -296,6 +300,8 @@ PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/bin/tvoutserver:system/bin/tvoutserver \\
     vendor/samsung/__DEVICE__/proprietary/cameradata/datapattern_420sp.yuv:system/cameradata/datapattern_420sp.yuv \\
     vendor/samsung/__DEVICE__/proprietary/cameradata/datapattern_front_420sp.yuv:system/cameradata/datapattern_front_420sp.yuv \\
+    vendor/samsung/__DEVICE__/proprietary/firmware/SA/RS_M5LS.bin:system/firmware/SA/RS_M5LS.bin \\
+    vendor/samsung/__DEVICE__/proprietary/firmware/SG/RS_M5LS.bin:system/firmware/SG/RS_M5LS.bin \\
     vendor/samsung/__DEVICE__/proprietary/lib/libActionShot.so:system/lib/libActionShot.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libcamera.so:system/lib/libcamera.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libarccamera.so:system/lib/libarccamera.so \\
