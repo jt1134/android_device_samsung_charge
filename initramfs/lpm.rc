@@ -16,7 +16,6 @@ on init
     mkdir /data
     mkdir /cache
     mkdir /tmp
-    mkdir /dbdata
 
     mkdir /mnt 0775 root root
 
@@ -37,7 +36,7 @@ on early-fs
 on fs
     mount tmpfs tmpfs /tmp
     mount rfs /dev/block/stl10 /system check=no
-
+    mount ext4 /dev/block/stl10 /system noatime nodiratime errors=continue nobh data=writeback barrier=0 noauto_da_alloc
 on boot
 
     ifup lo

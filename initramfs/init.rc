@@ -40,14 +40,10 @@ loglevel 3
     mount cgroup none /acct cpuacct
     mkdir /acct/uid
 
-#add booting sound property 
-	setprop audioflinger.bootsnd 1
-
 # Backwards Compat - XXX: Going away in G*
     symlink /mnt/sdcard /sdcard
 
     mkdir /system
-    mkdir /dbdata 0771 system system
     mkdir /data 0771 system system
     mkdir /cache 0771 system cache
     mkdir /config 0500 root root
@@ -117,8 +113,6 @@ loglevel 3
     insmod /lib/modules/j4fs.ko
     insmod /lib/modules/storage.ko
 
-    insmod /lib/modules/Si4709_driver.ko
-
     # ko files for vibrator
     insmod /lib/modules/vibrator.ko
 
@@ -129,7 +123,8 @@ on fs
 # mount mtd partitions
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
     mount rfs /dev/block/stl10 /system check=no
-    
+    mount ext4 /dev/block/stl10 /system noatime nodiratime errors=continue nobh data=writeback barrier=0 noauto_da_alloc
+
 # use movinand second partition as /data. d.moskvitin
     #temp
     chown root root /sbin/fat.format
@@ -139,11 +134,12 @@ on fs
 #mount internal stroage (moviNAND or iNand)
     mkdir /data
     mount rfs /dev/block/mmcblk0p1 /data nosuid nodev check=no
+    mount ext4 /dev/block/mmcblk0p1 /data noatime nodiratime errors=continue nobh data=writeback barrier=0 noauto_da_alloc
     chown system system /data
     chmod 0771 /data
     
     mount rfs /dev/block/mmcblk0p3 /cache nosuid nodev check=no    
-
+    mount ext4 /dev/block/mmcblk0p3 /cache noatime nodiratime errors=continue nobh data=writeback barrier=0 noauto_da_alloc
     mkdir /mnt/.lfs 0755 root root
     mount j4fs /dev/block/stl7 /mnt/.lfs
     insmod /lib/modules/param.ko
@@ -208,8 +204,7 @@ on post-fs
     mkdir /data/misc/vpn/profiles 0770 system system
     # give system access to wpa_supplicant.conf for backup and restore
     mkdir /data/wifi 0777 wifi wifi
-#    mkdir /data/misc/wifi 0771 wifi system
-    mkdir /data/misc/wifi 0771 wifi wifi  
+    mkdir /data/misc/wifi 0777 wifi wifi  
     chmod 0777 /data/misc/wifi/
     chmod 0777 /data/wifi/
     mkdir /data/misc/dhcp 0777 dhcp dhcp
@@ -255,10 +250,6 @@ on post-fs
    # permissions for MTP device node_temporary permission_will be changed 0660
     chmod 0660 /dev/usb_mtp_gadget
     chown system system /dev/usb_mtp_gadget
-
-	# Setting device permissions for /dev/fmradio
-    chown system system /dev/fmradio
-    chmod 0660 /dev/fmradio
 
     # double check the perms, in case lost+found already exists, and set owner
     chown root root /data/lost+found
@@ -510,7 +501,9 @@ on boot
     write /proc/1/oom_adj -16
 
     # Tweak background writeout
-    write /proc/sys/vm/dirty_expire_centisecs 200
+    write /proc/sys/vm/dirty_writeback_centisecs 2000
+    write /proc/sys/vm/dirty_expire_centisecs 1000
+    write /proc/sys/vm/dirty_ratio 90
     write /proc/sys/vm/dirty_background_ratio  5
 
     # Permissions for System Server and daemons.
@@ -555,12 +548,8 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_rmem_max
     chown root radio /proc/cmdline
 
-# GOTA
-    chmod 0777 /system/etc/install-recovery.sh
-
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-#    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
     setprop net.tcp.buffersize.default 4096,87380,484848,4096,16384,369140
     setprop net.tcp.buffersize.wifi    4095,87380,110208,4096,16384,110208
     setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
@@ -759,12 +748,6 @@ service geomagneticd /system/bin/geomagneticd
 service gps-daemon /system/bin/gpsd
     user system
     group system inet
-
-service Pgps-Daemon /system/bin/RXN_IntApp 
-    socket pgpsd stream 660 system system
-    user system
-    group system inet    
-
 
 service tvout /system/bin/tvoutserver
     user system
