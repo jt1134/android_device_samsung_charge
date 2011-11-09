@@ -343,14 +343,6 @@ PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/lib/hw/gps.s5pc110.so:system/lib/hw/gps.s5pc110.so
 
 #
-# Vold (sdcard)
-#
-PRODUCT_COPY_FILES += \\
-    vendor/samsung/__DEVICE__/proprietary/bin/vold:system/bin/vold \\
-    vendor/samsung/__DEVICE__/proprietary/etc/vold.conf:system/etc/vold.conf \\
-    vendor/samsung/__DEVICE__/proprietary/etc/vold.fstab:system/etc/vold.fstab
-
-#
 # Files for battery charging screen
 #
 PRODUCT_COPY_FILES += \\

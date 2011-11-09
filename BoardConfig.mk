@@ -38,6 +38,10 @@ BOARD_SECOND_CAMERA_DEVICE := /dev/video2
 TARGET_NO_BOOTLOADER := true
 TARGET_BOOTLOADER_BOARD_NAME := s5pc110
 
+TARGET_PROVIDES_INIT := true
+TARGET_PROVIDES_INIT_TARGET_RC := true
+TARGET_RECOVERY_INITRC := device/samsung/charge/recovery.rc
+
 TARGET_BOARD_PLATFORM := s5pv210
 TARGET_BOARD_PLATFORM_GPU := POWERVR_SGX540_120
 
@@ -53,6 +57,10 @@ ANDROID_ARM_LINKER := true
 # Set Audio related defines below.
 BOARD_USES_GENERIC_AUDIO := false
 TARGET_PROVIDES_LIBAUDIO := true
+
+# Releasetools
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/charge/releasetools/charge_ota_from_target_files
+TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/charge/releasetools/charge_img_from_target_files
 
 # WiFi related defines
 BOARD_WPA_SUPPLICANT_DRIVER := WEXT
@@ -99,7 +107,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 # Kernel/recovery devices
 BOARD_BML_BOOT := "/dev/block/bml8"
 BOARD_BML_RECOVERY := "/dev/block/bml9"
-
-# Override cyanogen squisher to customize our update zip package
-TARGET_CUSTOM_RELEASETOOL := ./device/samsung/charge/releasetools/squisher
+#TARGET_USERIMAGES_USE_EXT4 := true
+BOARD_CUSTOM_BOOTIMG_MK := device/samsung/charge/shbootimg.mk
+TARGET_RECOVERY_PRE_COMMAND := "echo 1 > /cache/.startrecovery; sync;"
 

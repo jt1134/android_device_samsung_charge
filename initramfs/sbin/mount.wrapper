@@ -1,6 +1,0 @@
-#!/sbin/sh
-if [ "$2" = 'auto' ] || [ "$2" = 'rfs' ]; then
-	/sbin/busybox mount -t ext4 -o noatime,barrier=0,data=ordered $4 $5 || /sbin/busybox mount $*
-else
-	/sbin/busybox mount $*
-fi

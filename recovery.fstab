@@ -1,9 +1,9 @@
 # mount     fstype  device                  [device2]   [fstype2]   [fsoptions]         [fsoptions2]
 
-/boot       mtd     boot
+/boot       bml     boot
 /cache      ext4    /dev/block/mmcblk0p3
 /data       ext4    /dev/block/mmcblk0p1
 /datadata   ext4    /dev/block/stl11
-/recovery   mtd     recovery
+/recovery   bml     recovery
 /sdcard     vfat    /dev/block/mmcblk1p1
 /system     ext4    /dev/block/stl10

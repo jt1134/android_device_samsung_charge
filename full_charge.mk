@@ -28,6 +28,19 @@ $(call inherit-product, device/common/gps/gps_us_supl.mk)
 ## (2) Also get non-open-source GSM-specific aspects if available
 $(call inherit-product-if-exists, vendor/samsung/charge/charge-vendor.mk)
 
+# Init files
+PRODUCT_COPY_FILES += \
+  device/samsung/charge/init.rc:root/init.rc \
+  device/samsung/charge/ueventd.rc:root/ueventd.rc \
+  device/samsung/charge/lpm.rc:root/lpm.rc
+
+# kernel modules for ramdisk
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,device/samsung/charge/modules,root/lib/modules)
+
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,device/samsung/charge/modules,recovery/root/lib/modules)
+
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=240 \
@@ -140,6 +153,11 @@ PRODUCT_PACKAGES += \
     libstagefrighthw \
     overlay.s5pc110
 
+# update utilities
+PRODUCT_PACKAGES += \
+  make_ext4fs \
+  bootmenu_busybox
+
 # apn config
 PRODUCT_COPY_FILES += \
     device/samsung/charge/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml \
@@ -171,6 +189,10 @@ endif
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
+
+# copy the filesystem converter
+PRODUCT_COPY_FILES += \
+  device/samsung/charge/updater.sh:updater.sh
 
 $(call inherit-product, build/target/product/full.mk)
 
