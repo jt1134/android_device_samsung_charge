@@ -64,12 +64,13 @@ TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/charge/releasetool
 
 # WiFi related defines
 BOARD_WPA_SUPPLICANT_DRIVER := WEXT
-WPA_SUPPLICANT_VERSION := VER_0_6_X
+WPA_SUPPLICANT_VERSION := VER_0_8_X
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wext
 BOARD_WLAN_DEVICE := bcm4329
 WIFI_DRIVER_MODULE_PATH := "/lib/modules/dhd.ko"
 WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/etc/wifi/bcm4329_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt dhd_watchdog_ms=10 dhd_poll=1"
-WIFI_DRIVER_FW_AP_PATH := "/system/etc/wifi/bcm4329_aps.bin"
-WIFI_DRIVER_FW_STA_PATH := "/system/etc/wifi/bcm4329_sta.bin"
+WIFI_DRIVER_FW_PATH_AP := "/system/etc/wifi/bcm4329_aps.bin"
+WIFI_DRIVER_FW_PATH_STA := "/system/etc/wifi/bcm4329_sta.bin"
 WIFI_DRIVER_MODULE_NAME := "dhd"
 
 #USB tethering
@@ -87,6 +88,9 @@ BRCM_BT_USE_BTL_IF := true
 WITH_A2DP := true
 
 BOARD_EGL_CFG := device/samsung/charge/prebuilt/lib/egl/egl.cfg
+BOARD_USES_LEGACY_EGL := true
+
+BOARD_USE_LEGACY_TOUCHSCREEN := true
 
 # Device related defines
 
@@ -97,17 +101,16 @@ BOARD_KERNEL_BASE := 0x02e00000
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_USES_BMLUTILS := true
 
-BOARD_BOOTIMAGE_MAX_SIZE := $(call image-size-from-data-size,0x00280000)
-BOARD_RECOVERYIMAGE_MAX_SIZE := $(call image-size-from-data-size,0x00500000)
-BOARD_SYSTEMIMAGE_MAX_SIZE := $(call image-size-from-data-size,0x07500000)
-BOARD_USERDATAIMAGE_MAX_SIZE := $(call image-size-from-data-size,0x04ac0000)
-# The size of a block that can be marked bad.
-BOARD_FLASH_BLOCK_SIZE := 131072
+BOARD_BOOTIMAGE_PARTITION_SIZE := 7864320
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 262144000
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 1500000000
+BOARD_FLASH_BLOCK_SIZE := 4096
 
 # Kernel/recovery devices
 BOARD_BML_BOOT := "/dev/block/bml8"
 BOARD_BML_RECOVERY := "/dev/block/bml9"
 #TARGET_USERIMAGES_USE_EXT4 := true
+BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/aries-common/recovery/graphics.c
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/charge/shbootimg.mk
 TARGET_RECOVERY_PRE_COMMAND := "echo 1 > /cache/.startrecovery; sync;"
 

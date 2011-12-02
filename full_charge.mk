@@ -18,9 +18,8 @@
 # This is the product configuration for a generic GSM passion,
 # not specialized for any geography.
 #
-$(call inherit-product, $(SRC_TARGET_DIR)/product/small_base.mk)
-
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full.mk)
 
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
@@ -135,23 +134,6 @@ PRODUCT_COPY_FILES += \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml \
     device/samsung/charge/prebuilt/etc/permissions/android.hardware.telephony.ehrpd.xml:system/etc/permissions/android.hardware.telephony.ehrpd.xml \
     device/samsung/charge/prebuilt/etc/permissions/android.hardware.telephony.lte.xml:system/etc/permissions/android.hardware.telephony.lte.xml
-
-# These are the OpenMAX IL configuration files
-PRODUCT_COPY_FILES += \
-    device/samsung/charge/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry
-
-# These are the OpenMAX IL modules
-PRODUCT_PACKAGES += \
-    libSEC_OMX_Core.s5pc110 \
-    libOMX.SEC.AVC.Decoder.s5pc110 \
-    libOMX.SEC.M4V.Decoder.s5pc110 \
-    libOMX.SEC.M4V.Encoder.s5pc110 \
-    libOMX.SEC.AVC.Encoder.s5pc110
-
-# Libs
-PRODUCT_PACKAGES += \
-    libstagefrighthw \
-    overlay.s5pc110
 
 # update utilities
 PRODUCT_PACKAGES += \

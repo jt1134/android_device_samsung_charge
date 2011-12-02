@@ -67,8 +67,6 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   AppendAssertions(script, input_zip)
   device_specific.FullOTA_Assertions()
-  if OPTIONS.backuptool:
-    script.RunBackup("backup")
 
   script.ShowProgress(0.5, 0)
 
@@ -80,7 +78,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.UnpackPackageDir("recovery", "/system")
   script.UnpackPackageDir("system", "/system")
 
-  symlinks = CopySystemFiles(input_zip, output_zip)
+  (symlinks, retouch_files) = CopySystemFiles(input_zip, output_zip)
   script.MakeSymlinks(symlinks)
 
   CopyBootFiles(input_zip, output_zip)
@@ -90,12 +88,6 @@ def WriteFullOTAPackage(input_zip, output_zip):
   Item.Get("system").SetPermissions(script)
 
   script.ShowProgress(0.2, 0)
-
-  if OPTIONS.backuptool:
-    script.ShowProgress(0.2, 10)
-    script.RunBackup("restore")
-
-  script.RunVerifyCachePartitionSize()
 
   script.ShowProgress(0.2, 10)
   script.BMLWriteRawImage("boot", "boot.img")
