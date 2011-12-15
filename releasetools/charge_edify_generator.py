@@ -33,18 +33,14 @@ class EdifyGenerator(edify_generator.EdifyGenerator):
       self.script.append(
             ('package_extract_file("busybox", "/tmp/busybox");\n'
              'set_perm(0, 0, 0777, "/tmp/busybox");'))
+      self.script.append(
+            ('package_extract_file("bmlwrite", "/tmp/bmlwrite");\n'
+             'set_perm(0, 0, 0777, "/tmp/bmlwrite");'))
+      self.script.append(
+            ('package_extract_file("boot.img", "/tmp/boot.img");\n'))
       self.script.append('assert(run_program("/tmp/updater.sh") == 0);')
       self.script.append('ui_print("Formatting of EXT4 complete...");')
 
     def RunBackup(self, command):
       edify_generator.EdifyGenerator.RunBackup(self, command)
 
-    def BMLWriteRawImage(self, partition, image):
-      """Write the given package file into the given partition."""
-
-      args = {'partition': partition, 'image': image}
-
-      self.script.append(
-            ('assert(package_extract_file("%(image)s", "/tmp/%(image)s"),\n'
-             '       write_raw_image("/tmp/%(image)s", "%(partition)s"),\n'
-             '       delete("/tmp/%(image)s"));') % args)

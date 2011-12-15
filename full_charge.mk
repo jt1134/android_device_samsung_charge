@@ -138,7 +138,8 @@ PRODUCT_COPY_FILES += \
 # update utilities
 PRODUCT_PACKAGES += \
   make_ext4fs \
-  bootmenu_busybox
+  bootmenu_busybox \
+  bmlwrite
 
 # apn config
 PRODUCT_COPY_FILES += \
@@ -161,6 +162,10 @@ PRODUCT_COPY_FILES += \
 # vold
 PRODUCT_COPY_FILES += \
      device/samsung/charge/prebuilt/etc/vold.fstab:system/etc/vold.fstab
+
+# touchscreen
+PRODUCT_COPY_FILES += \
+     device/samsung/aries-common/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc
 
 # Kernel
 ifeq ($(TARGET_PREBUILT_KERNEL),)
