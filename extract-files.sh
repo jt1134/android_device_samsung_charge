@@ -25,6 +25,7 @@ if [ -f "$1" ]; then
 	unzip -q "$1" -d tmp
 	if [ $? != 0 ]; then
 		echo "$1 is not a valid zip file. Bye."
+		rm -rf tmp
 		exit 1
 	fi
 	echo "$1 successfully unzip'd. Copying files..."
@@ -35,10 +36,7 @@ fi
 
 DIRS="
 bin
-cameradata
 etc/wifi
-firmware/SA
-firmware/SG
 lib/egl
 lib/hw
 media
@@ -54,35 +52,6 @@ etc/wifi/nvram_mfg.txt
 etc/wifi/bcm4329_aps.bin
 etc/wifi/bcm4329_mfg.bin
 etc/wifi/bcm4329_sta.bin
-
-bin/tvoutserver
-cameradata/datapattern_420sp.yuv
-cameradata/datapattern_front_420sp.yuv
-firmware/SA/RS_M5LS.bin
-firmware/SG/RS_M5LS.bin
-lib/libActionShot.so
-lib/libcamera.so
-lib/libarccamera.so
-lib/libcamera_client.so
-lib/libcamerafirmwarejni.so
-lib/libcameraservice.so
-lib/libCaMotion.so
-lib/libcaps.so
-lib/libddc.so
-lib/libedid.so
-lib/libfactorytestcamerajni.so
-lib/libfimc.so
-lib/libPanoraMax1.so
-lib/libPlusMe.so
-lib/libs3cjpeg.so
-lib/libseccamera.so
-lib/libseccameraadaptor.so
-lib/libsecjpegencoder.so
-lib/libtvout.so
-lib/lib_tvoutengine.so
-lib/libtvoutfimc.so
-lib/libtvouthdmi.so
-lib/libtvoutservice.so
 
 bin/pppd_runner
 bin/rild
@@ -112,34 +81,11 @@ lib/libusc.so
 
 bin/geomagneticd
 bin/orientationd
-lib/libsensorservice.so
 lib/libsensor_yamaha_test.so
 lib/hw/sensors.default.so
 
-lib/hw/copybit.s5pc110.so
 lib/hw/lights.s5pc110.so
 lib/hw/gralloc.s5pc110.so
-
-lib/libs263domxoc.so
-lib/libs263eomxoc.so
-lib/libs264domxoc.so
-lib/libs264eomxoc.so
-lib/libsaacdomxoc.so
-lib/libsaaceomxoc.so
-lib/libsac3domxoc.so
-lib/libsamrdomxoc.so
-lib/libsamreomxoc.so
-lib/libsdiv3domxoc.so
-lib/libsflacdomxoc.so
-lib/libsmp3domxoc.so
-lib/libsmp4vdomxoc.so
-lib/libsvc1domxoc.so
-lib/libswmadomxoc.so
-lib/libswmv7domxoc.so
-lib/libswmv8domxoc.so
-lib/libstagefrighthw.so
-lib/libSecOMXCore.so
-lib/hw/overlay.s5pc110.so
 
 bin/playlpm
 bin/charging_mode
@@ -222,6 +168,7 @@ PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/lib/libsec-ril40.so:obj/lib/libsec-ril40.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libsec-ril40-cdma.so:obj/lib/libsec-ril40-cdma.so
 
+# gfx
 PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/bin/pvrsrvinit:system/bin/pvrsrvinit \\
     vendor/samsung/__DEVICE__/proprietary/lib/egl/libGLES_android.so:system/lib/egl/libGLES_android.so \\
@@ -265,7 +212,6 @@ PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/bin/pppd_runner:system/bin/pppd_runner \\
     vendor/samsung/__DEVICE__/proprietary/bin/rild:system/bin/rild \\
     vendor/samsung/__DEVICE__/proprietary/etc/cellcache.db:system/etc/cellcache.db \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libnetutils.so:system/lib/libnetutils.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libsec-ril40.so:system/lib/libsec-ril40.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libsec-ril40-cdma.so:system/lib/libsec-ril40-cdma.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libsecril-client.so:system/lib/libsecril-client.so \\
