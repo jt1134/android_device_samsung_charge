@@ -114,3 +114,4 @@ BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/aries-common/recovery/graphics.
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/charge/shbootimg.mk
 TARGET_RECOVERY_PRE_COMMAND := "echo 1 > /cache/.startrecovery; sync;"
 
+TARGET_OTA_ASSERT_DEVICE := charge,SCH-I510
