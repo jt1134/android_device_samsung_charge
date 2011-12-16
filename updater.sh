@@ -44,22 +44,22 @@ exec >> /sdcard/cyanogenmod.log 2>&1
 #
 
 # format system if not ext4
-if ! /tmp/busybox mount -t ext4 /dev/block/stl10 /system ; then
-    /tmp/busybox umount /system
-    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /system /dev/block/stl10
-fi
+#if ! /tmp/busybox mount -t ext4 /dev/block/stl10 /system ; then
+#    /tmp/busybox umount /system
+#    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /system /dev/block/stl10
+#fi
 
 # format cache if not ext4
-if ! /tmp/busybox mount -t ext4 /dev/block/mmcblk0p3 /cache ; then
-    /tmp/busybox umount /cache
-    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /cache dev/block/mmcblk0p3
-fi
+#if ! /tmp/busybox mount -t ext4 /dev/block/mmcblk0p3 /cache ; then
+#    /tmp/busybox umount /cache
+#    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /cache dev/block/mmcblk0p3
+#fi
 
 # format data if not ext4
-if ! /tmp/busybox mount -t ext4 /dev/block/mmcblk0p1  /data ; then
-    /tmp/busybox umount /data
-    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/block/mmcblk0p1
-fi
+#if ! /tmp/busybox mount -t ext4 /dev/block/mmcblk0p1  /data ; then
+#    /tmp/busybox umount /data
+#    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/block/mmcblk0p1
+#fi
 
 # unmount everything
 /tmp/busybox umount -l /system
