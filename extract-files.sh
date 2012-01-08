@@ -87,6 +87,8 @@ lib/hw/sensors.default.so
 lib/hw/lights.s5pc110.so
 lib/hw/gralloc.s5pc110.so
 
+bin/BCM4329B1_002.002.023.0746.0818.hcd
+
 bin/playlpm
 bin/charging_mode
 lib/libQmageDecoder.so
@@ -223,6 +225,12 @@ PRODUCT_COPY_FILES += \\
 PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/bin/gpsd:system/bin/gpsd \\
     vendor/samsung/__DEVICE__/proprietary/lib/hw/gps.s5pc110.so:system/lib/hw/gps.s5pc110.so
+
+#
+# bluetooth
+#
+PRODUCT_COPY_FILES += \\
+    vendor/samsung/__DEVICE__/proprietary/bin/BCM4329B1_002.002.023.0746.0818.hcd:system/bin/BCM4329B1_002.002.023.0746.0818.hcd
 
 #
 # Files for battery charging screen

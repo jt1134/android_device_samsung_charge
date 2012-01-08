@@ -78,10 +78,8 @@ service recovery /sbin/recovery
     oneshot
 
 service adbd /sbin/adbd recovery
-	disabled
+	#disabled
 
-on property:persist.service.adb.enable=1
+on property:ro.debuggable=1
     start adbd
 
-on property:persist.service.adb.enable=0
-    stop adbd

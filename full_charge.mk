@@ -29,7 +29,7 @@ $(call inherit-product-if-exists, vendor/samsung/charge/charge-vendor.mk)
 
 # Init files
 PRODUCT_COPY_FILES += \
-  device/samsung/charge/init.rc:root/init.rc \
+  device/samsung/charge/init.smdkc110.rc:root/init.smdkc110.rc \
   device/samsung/charge/ueventd.rc:root/ueventd.rc \
   device/samsung/charge/lpm.rc:root/lpm.rc
 
@@ -42,9 +42,6 @@ PRODUCT_COPY_FILES += \
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=240 \
-    rild.libpath=/system/lib/libsec-ril40-cdma.so \
-    rild.libargs=-d[SPACE]/dev/ttyS0 \
     wifi.interface=eth0 \
     wifi.supplicant_scan_interval=90 \
     ro.wifi.channels=11 \
@@ -96,23 +93,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     mobiledata.interfaces=eth0,ppp0,pdpbr0,svnet0,hrpd0
 
-# charge uses high-density artwork where available
-PRODUCT_LOCALES := hdpi
-
 DEVICE_PACKAGE_OVERLAYS += device/samsung/charge/overlay
-
-# media profiles and capabilities spec
-PRODUCT_PROPERTY_OVERRIDES += \
-      media.a1026.nsForVoiceRec=0 \
-      media.a1026.enableA1026=1
-
-# media config xml file
-PRODUCT_COPY_FILES += \
-    device/samsung/charge/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml
 
 # other stuffs
 PRODUCT_COPY_FILES += \
-    device/samsung/charge/prebuilt/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     device/samsung/charge/prebuilt/xbin/bmlwrite:system/xbin/bmlwrite
 
 # asound.conf
@@ -141,6 +125,32 @@ PRODUCT_PACKAGES += \
   bootmenu_busybox \
   bmlwrite
 
+# audio libs
+PRODUCT_PACKAGES += \
+	audio.primary.s5pc110 \
+	audio_policy.s5pc110 \
+	audio.a2dp.default
+
+# other libs
+PRODUCT_PACKAGES += \
+	hwcomposer.s5pc110 \
+	camera.s5pc110 \
+	libs3cjpeg \
+	libstagefrighthw
+
+# These are the OpenMAX IL configuration files
+PRODUCT_COPY_FILES += \
+	device/samsung/charge/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry \
+	device/samsung/charge/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml
+
+# These are the OpenMAX IL modules
+PRODUCT_PACKAGES += \
+	libSEC_OMX_Core.s5pc110 \
+	libOMX.SEC.AVC.Decoder.s5pc110 \
+	libOMX.SEC.M4V.Decoder.s5pc110 \
+	libOMX.SEC.M4V.Encoder.s5pc110 \
+	libOMX.SEC.AVC.Encoder.s5pc110
+
 # apn config
 PRODUCT_COPY_FILES += \
     device/samsung/charge/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml \
@@ -151,13 +161,12 @@ PRODUCT_COPY_FILES += \
      device/samsung/charge/prebuilt/usr/keylayout/s3c-keypad.kl:system/usr/keylayout/s3c-keypad.kl \
      device/samsung/charge/prebuilt/usr/keylayout/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
      device/samsung/charge/prebuilt/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
-     device/samsung/charge/prebuilt/usr/keylayout/melfas-touchkey.kl:system/usr/keylayout/melfas-touchkey.kl \
-     device/samsung/charge/prebuilt/usr/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
-     device/samsung/charge/prebuilt/usr/keychars/s3c-keypad.kcm.bin:system/usr/keychars/s3c-keypad.kcm.bin \
-     device/samsung/charge/prebuilt/usr/keychars/sec_jack.kcm.bin:system/usr/keychars/sec_jack.kcm.bin \
-     device/samsung/charge/prebuilt/usr/keychars/melfas-touchkey.kcm.bin:system/usr/keychars/melfas-touchkey.kcm.bin \
-     device/samsung/charge/prebuilt/usr/keychars/qwerty.kcm.bin:system/usr/keychars/qwerty.kcm.bin \
-     device/samsung/charge/prebuilt/usr/keychars/qwerty2.kcm.bin:system/usr/keychars/qwerty2.kcm.bin  
+     device/samsung/charge/prebuilt/usr/keylayout/Broadcom_Bluetooth_HID.kl:system/usr/keylayout/Broadcom_Bluetooth_HID.kl \
+     device/samsung/charge/prebuilt/usr/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl
+
+# Generated kcm keymaps
+PRODUCT_PACKAGES += \
+       s3c-keypad.kcm
 
 # vold
 PRODUCT_COPY_FILES += \
@@ -165,7 +174,7 @@ PRODUCT_COPY_FILES += \
 
 # touchscreen
 PRODUCT_COPY_FILES += \
-     device/samsung/aries-common/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc
+     device/samsung/charge/prebuilt/usr/idc/qt602240_ts_input.idc:system/usr/idc/qt602240_ts_input.idc
 
 # Kernel
 ifeq ($(TARGET_PREBUILT_KERNEL),)

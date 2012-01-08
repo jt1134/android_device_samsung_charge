@@ -16,5 +16,15 @@
 
 LOCAL_PATH := $(call my-dir)
 
+ifeq ($(TARGET_DEVICE),charge)
+
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := s3c-keypad.kcm
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_KEY_CHAR_MAP)
+
 include $(call all-makefiles-under,$(LOCAL_PATH))
 include device/samsung/aries-common/bmlutils/Android.mk
+
+endif
+
