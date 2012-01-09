@@ -40,6 +40,8 @@ etc/wifi
 lib/egl
 lib/hw
 media
+vendor/lib/egl
+vendor/lib/hw
 "
 
 for DIR in $DIRS; do
@@ -66,26 +68,26 @@ bin/gpsd
 lib/hw/gps.s5pc110.so
 
 bin/pvrsrvinit
-lib/egl/libEGL_POWERVR_SGX540_120.so
 lib/egl/libGLES_android.so
-lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so
-lib/egl/libGLESv2_POWERVR_SGX540_120.so
-lib/libsrv_um.so
-lib/libsrv_init.so
-lib/libIMGegl.so
-lib/libpvr2d.so
-lib/libpvrANDROID_WSEGL.so
-lib/libglslcompiler.so
-lib/libPVRScopeServices.so
-lib/libusc.so
+vendor/lib/egl/libEGL_POWERVR_SGX540_120.so
+vendor/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so
+vendor/lib/egl/libGLESv2_POWERVR_SGX540_120.so
+vendor/lib/libsrv_um.so
+vendor/lib/libsrv_init.so
+vendor/lib/libIMGegl.so
+vendor/lib/libpvr2d.so
+vendor/lib/libpvrANDROID_WSEGL.so
+vendor/lib/libglslcompiler.so
+vendor/lib/libPVRScopeServices.so
+vendor/lib/libusc.so
 
 bin/geomagneticd
 bin/orientationd
 lib/libsensor_yamaha_test.so
-lib/hw/sensors.default.so
+lib/hw/sensors.s5pc110.so
 
 lib/hw/lights.s5pc110.so
-lib/hw/gralloc.s5pc110.so
+vendor/lib/hw/gralloc.s5pc110.so
 
 bin/BCM4329B1_002.002.023.0746.0818.hcd
 
@@ -174,18 +176,18 @@ PRODUCT_COPY_FILES += \\
 PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/bin/pvrsrvinit:system/bin/pvrsrvinit \\
     vendor/samsung/__DEVICE__/proprietary/lib/egl/libGLES_android.so:system/lib/egl/libGLES_android.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/egl/libEGL_POWERVR_SGX540_120.so:system/vendor/lib/egl/libEGL_POWERVR_SGX540_120.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so:system/vendor/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/egl/libGLESv2_POWERVR_SGX540_120.so:system/vendor/lib/egl/libGLESv2_POWERVR_SGX540_120.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/hw/gralloc.s5pc110.so:system/vendor/lib/hw/gralloc.s5pc110.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libglslcompiler.so:system/vendor/lib/libglslcompiler.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libIMGegl.so:system/vendor/lib/libIMGegl.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libpvr2d.so:system/vendor/lib/libpvr2d.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libpvrANDROID_WSEGL.so:system/vendor/lib/libpvrANDROID_WSEGL.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libPVRScopeServices.so:system/vendor/lib/libPVRScopeServices.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libsrv_init.so:system/vendor/lib/libsrv_init.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libsrv_um.so:system/vendor/lib/libsrv_um.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libusc.so:system/vendor/lib/libusc.so
+    vendor/samsung/__DEVICE__/proprietary/vendor/lib/egl/libEGL_POWERVR_SGX540_120.so:system/vendor/lib/egl/libEGL_POWERVR_SGX540_120.so \\
+    vendor/samsung/__DEVICE__/proprietary/vendor/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so:system/vendor/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \\
+    vendor/samsung/__DEVICE__/proprietary/vendor/lib/egl/libGLESv2_POWERVR_SGX540_120.so:system/vendor/lib/egl/libGLESv2_POWERVR_SGX540_120.so \\
+    vendor/samsung/__DEVICE__/proprietary/vendor/lib/hw/gralloc.s5pc110.so:system/vendor/lib/hw/gralloc.s5pc110.so \\
+    vendor/samsung/__DEVICE__/proprietary/vendor/lib/libglslcompiler.so:system/vendor/lib/libglslcompiler.so \\
+    vendor/samsung/__DEVICE__/proprietary/vendor/lib/libIMGegl.so:system/vendor/lib/libIMGegl.so \\
+    vendor/samsung/__DEVICE__/proprietary/vendor/lib/libpvr2d.so:system/vendor/lib/libpvr2d.so \\
+    vendor/samsung/__DEVICE__/proprietary/vendor/lib/libpvrANDROID_WSEGL.so:system/vendor/lib/libpvrANDROID_WSEGL.so \\
+    vendor/samsung/__DEVICE__/proprietary/vendor/lib/libPVRScopeServices.so:system/vendor/lib/libPVRScopeServices.so \\
+    vendor/samsung/__DEVICE__/proprietary/vendor/lib/libsrv_init.so:system/vendor/lib/libsrv_init.so \\
+    vendor/samsung/__DEVICE__/proprietary/vendor/lib/libsrv_um.so:system/vendor/lib/libsrv_um.so \\
+    vendor/samsung/__DEVICE__/proprietary/vendor/lib/libusc.so:system/vendor/lib/libusc.so
 
 #
 # Wifi
@@ -203,7 +205,7 @@ PRODUCT_COPY_FILES += \\
 PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/bin/geomagneticd:system/bin/geomagneticd \\
     vendor/samsung/__DEVICE__/proprietary/bin/orientationd:system/bin/orientationd \\
-    vendor/samsung/__DEVICE__/proprietary/lib/hw/sensors.default.so:system/lib/hw/sensors.default.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/hw/sensors.s5pc110.so:system/lib/hw/sensors.s5pc110.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libsensor_yamaha_test.so:system/lib/libsensor_yamaha_test.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/hw/lights.s5pc110.so:system/lib/hw/lights.s5pc110.so
 
