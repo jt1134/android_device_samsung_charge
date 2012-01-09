@@ -42,7 +42,7 @@ loglevel 9
     # ko files for bthid
     insmod /lib/modules/bthid.ko
 
-    #stop ril-daemon
+    stop ril-daemon
 
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
@@ -385,7 +385,7 @@ service hciattach /system/bin/brcm_patchram_plus -d --enable_hci --baudrate 3000
     disabled
     oneshot
 
-service ril-daemon /system/bin/rild -l /system/lib/libsec-ril40.so -s rildext
+service ril-daemon1 /system/bin/rild -l /system/lib/libsec-ril40.so -s rildext
     class main
     socket rildext stream 660 root radio
     socket rild-debug stream 660 radio system
