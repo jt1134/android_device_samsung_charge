@@ -8,4 +8,4 @@ key 139    MENU
 key 25    DPAD_UP           WAKE_DROPPED
 key 41    DPAD_DOWN         WAKE_DROPPED
 key 33    DPAD_CENTER       WAKE_DROPPED
-key 10    UNKNOWN     	    WAKE_DROPPED
+#key 10    UNKNOWN     	    WAKE_DROPPED
