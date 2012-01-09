@@ -40,6 +40,7 @@ etc/wifi
 lib/egl
 lib/hw
 media
+vendor/firmware
 vendor/lib/egl
 vendor/lib/hw
 "
@@ -49,16 +50,11 @@ for DIR in $DIRS; do
 done
 
 FILES="
-etc/wifi/nvram_net.txt
-etc/wifi/nvram_mfg.txt
-etc/wifi/bcm4329_aps.bin
-etc/wifi/bcm4329_mfg.bin
-etc/wifi/bcm4329_sta.bin
+vendor/firmware/nvram_net.txt
 
 bin/pppd_runner
 bin/rild
 etc/cellcache.db
-lib/libnetutils.so
 lib/libril.so
 lib/libsec-ril40.so
 lib/libsec-ril40-cdma.so
@@ -193,11 +189,7 @@ PRODUCT_COPY_FILES += \\
 # Wifi
 #
 PRODUCT_COPY_FILES += \\
-    vendor/samsung/__DEVICE__/proprietary/etc/wifi/nvram_net.txt:system/etc/wifi/nvram_net.txt \\
-    vendor/samsung/__DEVICE__/proprietary/etc/wifi/nvram_mfg.txt:system/etc/wifi/nvram_mfg.txt \\
-    vendor/samsung/__DEVICE__/proprietary/etc/wifi/bcm4329_aps.bin:system/etc/wifi/bcm4329_aps.bin \\
-    vendor/samsung/__DEVICE__/proprietary/etc/wifi/bcm4329_mfg.bin:system/etc/wifi/bcm4329_mfg.bin \\
-    vendor/samsung/__DEVICE__/proprietary/etc/wifi/bcm4329_sta.bin:system/etc/wifi/bcm4329_sta.bin
+    vendor/samsung/__DEVICE__/proprietary/vendor/firmware/nvram_net.txt:system/vendor/firmware/nvram_net.txt
 
 #
 # Sensors, Lights etc
