@@ -78,6 +78,9 @@ RNDIS_DEVICE := "/sys/devices/virtual/sec/switch/tethering"
 # fix mtp
 USE_SAMSUNG_USB_MTP_DEVICE := true
 
+# dammit Samsung
+BOARD_USES_PREBUILT_LIBNETUTILS := true
+
 # Bluetooth related defines
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_HAVE_BLUETOOTH := true
