@@ -93,4 +93,13 @@
 
 # android usb seeting
 /dev/ttyGS1		0660	root	root
-/dev/ttyETS0		0660	root	root		
+/dev/ttyETS0		0660	root	root	
+
+# radio
+/dev/s3c2410_serial3 0660 radio radio
+/dev/dpram0 0660 radio radio
+/dev/dpram1 0660 radio radio
+/dev/dpramerr 0660 radio radio
+/dev/multipdp 0660 radio radio
+/dev/ttyCDMA0 0660 radio radio
+/dev/ttyCSD0 0660 radio radio	

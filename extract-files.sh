@@ -60,6 +60,14 @@ lib/libsec-ril40.so
 lib/libsec-ril40-cdma.so
 lib/libsecril-client.so
 
+bin/netd
+lib/libnetutils.so
+lib/libwlbrcmp2papp.so
+lib/libwldhcp.so
+lib/libwlp2p.so
+lib/libwlwpscli.so
+lib/libwlwps.so
+
 bin/gpsd
 lib/hw/gps.s5pc110.so
 
@@ -212,6 +220,18 @@ PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/lib/libsec-ril40-cdma.so:system/lib/libsec-ril40-cdma.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libsecril-client.so:system/lib/libsecril-client.so \\
     vendor/samsung/__DEVICE__/proprietary/lib/libril.so:system/lib/libril.so
+
+#
+# samsung crap needed for ril libraries
+#
+PRODUCT_COPY_FILES += \\
+    vendor/samsung/__DEVICE__/proprietary/bin/netd:system/bin/netd \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libnetutils.so:system/lib/libnetutils.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libwlbrcmp2papp.so:system/lib/libwlbrcmp2papp.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libwldhcp.so:system/lib/libwldhcp.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libwlp2p.so:system/lib/libwlp2p.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libwlwpscli.so:system/lib/libwlwpscli.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libwlwps.so:system/lib/libwlwps.so
 
 #
 # GPS
