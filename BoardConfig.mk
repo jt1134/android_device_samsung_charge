@@ -72,14 +72,11 @@ WIFI_DRIVER_FW_PATH_AP	:= "/vendor/firmware/fw_bcm4329_apsta.bin"
 WIFI_DRIVER_FW_PATH_STA	:= "/vendor/firmware/fw_bcm4329.bin"
 WIFI_DRIVER_MODULE_NAME	:= "bcm4329"
 
-#USB tethering
+# USB tethering
 RNDIS_DEVICE := "/sys/devices/virtual/sec/switch/tethering"
 
 # fix mtp
-USE_SAMSUNG_USB_MTP_DEVICE := true
-
-# dammit Samsung
-BOARD_USES_PREBUILT_LIBNETUTILS := true
+BOARD_MTP_DEVICE := "/dev/usb_mtp_gadget"
 
 # Bluetooth related defines
 BOARD_HAVE_BLUETOOTH_BCM := true
@@ -94,9 +91,6 @@ WITH_A2DP := true
 BOARD_EGL_CFG := device/samsung/charge/prebuilt/lib/egl/egl.cfg
 USE_OPENGL_RENDERER := true
 BOARD_USE_SKIA_LCDTEXT := true
-#COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_EXTERNAL_IMAGE
-#COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_PIXEL_FORMAT_YV12
-#COMMON_GLOBAL_CFLAGS += -DMISSING_GRALLOC_BUFFERS
 
 # Device related defines
 
