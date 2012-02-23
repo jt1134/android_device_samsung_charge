@@ -782,7 +782,7 @@ int SecCamera::startPreview(void)
 
     m_flag_camera_start = 1;
 
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAM_PREVIEW_ONOFF, 0);
+    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAM_PREVIEW_ONOFF, 1);
     CHECK(ret);
     m_anti_banding = ANTI_BANDING_50HZ;
     ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ANTI_BANDING, m_anti_banding);
