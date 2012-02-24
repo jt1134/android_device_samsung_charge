@@ -46,4 +46,9 @@
         <item>"mobile_cbs,12,0,2,60000,true"</item>
     </string-array>
 
+    <!-- LUN file to be used by legacy USB manager.
+         The existence of this file will be used to determine in the
+         legacy USB manager should be started. -->
+    <string name="config_legacyUmsLunFile">/sys/devices/platform/usb_mass_storage/lun1/file</string>
+
 </resources>
