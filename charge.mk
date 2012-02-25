@@ -118,6 +118,23 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES := \
     ro.opengles.version=131072
 
+# radio stuff
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.ril.samsung_cdma=true \
+    ro.cdma.home.operator.numeric=310012 \
+    ro.cdma.home.operator.alpha=VzW \
+    ro.cdma.homesystem=64,65,76,77,78,79,80,81,82,83 \
+    ro.cdma.data_retry_config=default_randomization=2000,0,0,120000,180000,540000,960000 \
+    ro.cdma.otaspnumschema=SELC,3,00,07,80,87,88,99 \
+    net.cdma.pppd.authtype=require-chap \
+    net.cdma.pppd.user=user[SPACE]VerizonWireless \
+    net.cdma.datalinkinterface=/dev/ttyCDMA0 \
+    net.cdma.ppp.interface=ppp0 \
+    net.connectivity.type=CDMA1 \
+    net.interfaces.defaultroute=cdma \
+    ro.telephony.ril_class=SamsungRIL \
+    mobiledata.interfaces=eth0,ppp0
+
 # These are the hardware-specific settings that are stored in system properties.
 # Note that the only such settings should be the ones that are too low-level to
 # be reachable from resources or other mechanisms.
