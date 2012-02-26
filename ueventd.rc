@@ -89,7 +89,7 @@
 /dev/video2               0660   system     camera
 /dev/s3c-jpg              0660   system     camera
 /dev/s3c-mem              0660   system     system
-/dev/s3c-mfc              0660   system     graphics
+/dev/s3c-mfc              0660   media      media
 
 # android usb seeting
 /dev/ttyGS1		0660	root	root
