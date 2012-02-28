@@ -23,7 +23,8 @@ DEVICE_PACKAGE_OVERLAYS := device/samsung/charge/overlay
 PRODUCT_COPY_FILES := \
     device/samsung/charge/init.smdkc110.rc:root/init.smdkc110.rc \
     device/samsung/charge/ueventd.rc:root/ueventd.rc \
-    device/samsung/charge/lpm.rc:root/lpm.rc
+    device/samsung/charge/lpm.rc:root/lpm.rc \
+    device/samsung/charge/enable_vibrator.sh:root/sbin/enable_vibrator.sh
 
 # kernel modules for ramdisk
 PRODUCT_COPY_FILES += \
