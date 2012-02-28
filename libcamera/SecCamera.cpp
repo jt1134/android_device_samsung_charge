@@ -740,7 +740,14 @@ int SecCamera::startPreview(void)
     /* enum_fmt, s_fmt sample */
     int ret = fimc_v4l2_enum_fmt(m_cam_fd,m_preview_v4lformat);
     CHECK(ret);
-    ret = fimc_v4l2_s_fmt(m_cam_fd, m_preview_width,m_preview_height,m_preview_v4lformat, 0);
+
+    if (m_camera_id == CAMERA_ID_BACK) {
+        ret = fimc_v4l2_s_fmt(m_cam_fd, m_preview_width,m_preview_height,m_preview_v4lformat, 0);
+    }
+    else {
+        ret = fimc_v4l2_s_fmt(m_cam_fd, m_preview_height,m_preview_width,m_preview_v4lformat, 0);
+    }
+
     CHECK(ret);
 
     ret = fimc_v4l2_reqbufs(m_cam_fd, V4L2_BUF_TYPE_VIDEO_CAPTURE, MAX_BUFFERS);
@@ -757,19 +764,19 @@ int SecCamera::startPreview(void)
                            V4L2_CID_CAMERA_MON_MOVIE_SELECT, 0);
     CHECK(ret);
 
-    //if (m_camera_id == CAMERA_ID_FRONT) {
+    if (m_camera_id == CAMERA_ID_FRONT) {
         /* VT mode setting */
-        //ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_VT_MODE, m_vtmode);
-        //CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_VT_MODE, m_vtmode);
+        CHECK(ret);
 
-        //m_anti_banding = ANTI_BANDING_50HZ;
-        //ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ANTI_BANDING, m_anti_banding);
-        //CHECK(ret);
+        m_anti_banding = ANTI_BANDING_50HZ;
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ANTI_BANDING, m_anti_banding);
+        CHECK(ret);
 
         //ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_CHECK_FLIP, 0);
         //CHECK(ret);
 
-    //}
+    }
 
     /* start with all buffers in queue */
     for (int i = 0; i < MAX_BUFFERS; i++) {
@@ -782,47 +789,49 @@ int SecCamera::startPreview(void)
 
     m_flag_camera_start = 1;
 
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAM_PREVIEW_ONOFF, 1);
-    CHECK(ret);
-    m_anti_banding = ANTI_BANDING_50HZ;
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ANTI_BANDING, m_anti_banding);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ISO, m_params->iso);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_BRIGHTNESS, m_params->brightness);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FRAME_RATE, m_params->capture.timeperframe.denominator);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_METERING, m_params->metering);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_EFFECT, m_params->effects);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_WHITE_BALANCE, m_params->white_balance);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FOCUS_MODE, m_params->focus_mode);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FLASH_MODE, m_params->flash_mode);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FACE_DETECTION, 0); //m_face_detect);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_SHARPNESS, m_params->sharpness);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_SATURATION, m_params->saturation);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_CONTRAST, m_params->contrast);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_WDR, m_wdr);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ANTI_SHAKE, 0); //m_anti_shake);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_BEAUTY_SHOT, 0); //m_beauty_shot);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ZOOM, 0); //m_zoom_level);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_EV_PROGRAM_MODE, 0);
-    CHECK(ret);
-    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_MCC_MODE, 0);
-    CHECK(ret);
+    if (m_camera_id == CAMERA_ID_BACK) {
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAM_PREVIEW_ONOFF, 1);
+        CHECK(ret);
+        m_anti_banding = ANTI_BANDING_50HZ;
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ANTI_BANDING, m_anti_banding);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ISO, m_params->iso);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_BRIGHTNESS, m_params->brightness);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FRAME_RATE, m_params->capture.timeperframe.denominator);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_METERING, m_params->metering);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_EFFECT, m_params->effects);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_WHITE_BALANCE, m_params->white_balance);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FOCUS_MODE, m_params->focus_mode);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FLASH_MODE, m_params->flash_mode);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FACE_DETECTION, 0); //m_face_detect);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_SHARPNESS, m_params->sharpness);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_SATURATION, m_params->saturation);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_CONTRAST, m_params->contrast);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_WDR, m_wdr);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ANTI_SHAKE, 0); //m_anti_shake);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_BEAUTY_SHOT, 0); //m_beauty_shot);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ZOOM, 0); //m_zoom_level);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_EV_PROGRAM_MODE, 0);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_MCC_MODE, 0);
+        CHECK(ret);
+    }
 
     ret = fimc_v4l2_s_parm(m_cam_fd, &m_streamparm);
     CHECK(ret);
@@ -895,8 +904,14 @@ int SecCamera::startRecord(void)
     LOGI("%s: m_recording_width = %d, m_recording_height = %d\n",
          __func__, m_recording_width, m_recording_height);
 
-    ret = fimc_v4l2_s_fmt(m_cam_fd2, m_recording_width,
+    if (m_camera_id == CAMERA_ID_BACK) {
+        ret = fimc_v4l2_s_fmt(m_cam_fd2, m_recording_width,
                           m_recording_height, V4L2_PIX_FMT_NV12T, 0);
+    }
+    else {
+        ret = fimc_v4l2_s_fmt(m_cam_fd2, m_recording_height,
+                              m_recording_width, V4L2_PIX_FMT_NV12T, 0);
+    }
     CHECK(ret);
 
     ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FRAME_RATE,
