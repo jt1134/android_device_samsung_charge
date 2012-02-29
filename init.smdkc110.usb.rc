@@ -1,0 +1,7 @@
+on property:sys.usb.config=mass_storage
+    setprop sys.usb.state $sys.usb.config
+
+on property:sys.usb.config=mass_storage,adb
+    start adbd
+    setprop sys.usb.state $sys.usb.config
+

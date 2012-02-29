@@ -1,3 +1,5 @@
+import init.smdkc110.usb.rc
+
 on init
 
 loglevel 9
@@ -33,14 +35,6 @@ loglevel 9
     mkdir /mnt/.lfs 0755 root root
     mount j4fs /dev/block/stl7 /mnt/.lfs
     insmod /lib/modules/param.ko
-
-    insmod /lib/modules/Si4709_driver.ko
-
-    # ko files for vibrator
-    insmod /lib/modules/vibrator.ko
-
-    # ko files for bthid
-    insmod /lib/modules/bthid.ko
 
     stop ril-daemon
 
@@ -103,14 +97,21 @@ on fs
 
 on post-fs
 
-	chown radio radio /dev/multipdp
+    chown radio radio /dev/multipdp
 
-	insmod /lib/modules/ltespi.ko
-	insmod /lib/modules/onedram.ko
-	insmod /lib/modules/svnet.ko
-	insmod /lib/modules/modemctl.ko
-	insmod /lib/modules/dpram.ko
-	insmod /lib/modules/nvstorage.ko
+# ko files for vibrator
+    insmod /system/lib/modules/vibrator.ko
+
+# ko files for bthid
+    insmod /system/lib/modules/bthid.ko
+
+# ko files for radio
+    insmod /system/lib/modules/ltespi.ko
+    insmod /system/lib/modules/onedram.ko
+    insmod /system/lib/modules/svnet.ko
+    insmod /system/lib/modules/modemctl.ko
+    insmod /system/lib/modules/dpram.ko
+    insmod /system/lib/modules/nvstorage.ko
 
 # DivX DRM	
     mkdir /efs/.files 0775
@@ -357,9 +358,6 @@ on post-fs-data
 
 # Run sysinit
     exec /system/bin/sysinit
-
-on property:ro.debuggable=1
-    start adbd
 
     setprop vold.post_fs_data_done 1
 
