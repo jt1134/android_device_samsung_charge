@@ -1,0 +1,31 @@
+#LSI
+/dev/pvrsrvkm             0666   system     system
+/dev/video0               0660   system     camera
+/dev/video1               0660   system     camera
+/dev/video2               0660   system     camera
+/dev/video14              0660   system     system
+/dev/video20              0660   system     system
+/dev/video21              0660   system     system
+/dev/video22              0660   system     system
+/dev/s3c-jpg              0660   system     camera
+/dev/s3c-mem              0660   system     system
+/dev/s3c-mfc              0660   media      media
+
+# radio
+/dev/s3c2410_serial3      0660   radio      radio
+/dev/dpram0               0660   radio      radio
+/dev/dpram1               0660   radio      radio
+/dev/dpramerr             0660   radio      radio
+/dev/multipdp             0660   radio      radio
+/dev/onedram              0660   radio      radio
+/dev/ttyCDMA0             0660   radio      radio
+/dev/ttyCSD0              0660   radio      radio
+
+# for GPS
+/dev/s3c2410_serial1      0600   gps        gps
+
+# for vibrator
+/dev/tspdrv		  0660	 root	    shell
+
+# for mtp
+/dev/usb_mtp_gadget       0660   root       mtp

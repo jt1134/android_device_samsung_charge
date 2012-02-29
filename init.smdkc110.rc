@@ -66,21 +66,17 @@ on boot
     setprop ro.telephony.call_ring.multiple 0
 
 on fs
-
-    #mount rfs /dev/block/stl10 /system ro check=no
+# system
     mount ext4 /dev/block/stl10 /system
 
-    mkdir /data
-    #mount rfs /dev/block/mmcblk0p1 /data nosuid nodev check=no
+# data
     mount ext4 /dev/block/mmcblk0p1 /data wait nosuid noatime nodiratime noauto_da_alloc
-    chown system system /data
-    chmod 0771 /data
-    
-    #mount rfs /dev/block/mmcblk0p3 /cache nosuid nodev check=no    
-    mount ext4 /dev/block/mmcblk0p3 /cache wait nosuid noatime nodiratime noauto_da_alloc
-    mount rfs /dev/block/stl3 /efs nosuid nodev check=no
 
-    #chown system system /efs
+# cache
+    mount ext4 /dev/block/mmcblk0p3 /cache wait nosuid noatime nodiratime noauto_da_alloc
+
+# efs
+    mount rfs /dev/block/stl3 /efs nosuid nodev check=no
     chown radio radio /efs
     chmod 0771 /efs
 
@@ -88,10 +84,17 @@ on fs
     chown bluetooth bluetooth /dev/s3c2410_serial0
     chmod 0660 /dev/s3c2410_serial0
     chmod 0660 /sys/class/rfkill/rfkill0/state
-    #chmod 0660 /sys/class/rfkill/rfkill1/state
+    chmod 0660 /sys/class/rfkill/rfkill1/state
+    chmod 0660 /sys/class/rfkill/rfkill2/state
+    chmod 0660 /sys/class/rfkill/rfkill3/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    #chown bluetooth bluetooth /sys/class/rfkill/rfkill1/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill1/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill2/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill3/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill1/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill2/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill3/type
 
 # System server can control backlight brightness
     chown system system /sys/class/backlight/s5p_bl/brightness

@@ -22,7 +22,7 @@ DEVICE_PACKAGE_OVERLAYS := device/samsung/charge/overlay
 # Init files
 PRODUCT_COPY_FILES := \
     device/samsung/charge/init.smdkc110.rc:root/init.smdkc110.rc \
-    device/samsung/charge/ueventd.rc:root/ueventd.rc \
+    device/samsung/charge/ueventd.smdkc110.rc:root/ueventd.smdkc110.rc \
     device/samsung/charge/lpm.rc:root/lpm.rc \
     device/samsung/charge/enable_vibrator.sh:root/sbin/enable_vibrator.sh
 
@@ -121,7 +121,6 @@ PRODUCT_PROPERTY_OVERRIDES := \
 
 # radio stuff
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.ril.samsung_cdma=true \
     ro.cdma.home.operator.numeric=310012 \
     ro.cdma.home.operator.alpha=VzW \
     ro.cdma.homesystem=64,65,76,77,78,79,80,81,82,83 \
