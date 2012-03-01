@@ -191,10 +191,6 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
-# install wifi driver
-PRODUCT_COPY_FILES += \
-    device/samsung/charge/bcm4329.ko:system/lib/modules/bcm4329.ko
-
 # copy the filesystem converter
 PRODUCT_COPY_FILES += \
     device/samsung/charge/updater.sh:updater.sh
