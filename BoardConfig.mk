@@ -72,20 +72,12 @@ WIFI_DRIVER_FW_PATH_AP	:= "/vendor/firmware/fw_bcm4329_apsta.bin"
 WIFI_DRIVER_FW_PATH_STA	:= "/vendor/firmware/fw_bcm4329.bin"
 WIFI_DRIVER_MODULE_NAME	:= "bcm4329"
 
-# USB tethering
-RNDIS_DEVICE := "/sys/devices/virtual/sec/switch/tethering"
-
 # fix mtp
 BOARD_MTP_DEVICE := "/dev/usb_mtp_gadget"
 
 # Bluetooth related defines
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_HAVE_BLUETOOTH := true
-BT_USE_BTL_IF := true
-BT_ALT_STACK := true
-BRCM_BTL_INCLUDE_A2DP := true
-BRCM_BT_USE_BTL_IF := true
-WITH_A2DP := true
 
 # egl shit
 BOARD_EGL_CFG := device/samsung/charge/prebuilt/lib/egl/egl.cfg
