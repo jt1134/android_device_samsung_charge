@@ -104,7 +104,7 @@ void *SsbSipMfcDecOpen(void *value)
         LOGE("SsbSipMfcDecOpen: MFC Open failure\n");
         return NULL;
     }
-
+/*
     if (*(unsigned int *)value == NO_CACHE ||
         *(unsigned int *)value == CACHE) {
         DecArg.args.buf_type = *(unsigned int *)value;
@@ -115,7 +115,7 @@ void *SsbSipMfcDecOpen(void *value)
     } else {
         LOGE("SsbSipMfcDecOpenExt: value is invalid, value: %d\n", *(int *)value);
     }
-
+*/
     mapped_addr = (unsigned int)mmap(0, MMAP_BUFFER_SIZE_MMAP, PROT_READ | PROT_WRITE, MAP_SHARED, hMFCOpen, 0);
     if (!mapped_addr) {
         LOGE("SsbSipMfcDecOpen: FIMV5.0 driver address mapping failed\n");
