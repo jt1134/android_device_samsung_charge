@@ -25,8 +25,7 @@ PRODUCT_COPY_FILES := \
     device/samsung/charge/init.smdkc110.usb.rc:root/init.smdkc110.usb.rc \
     device/samsung/charge/init.smdkc110.usb.rc:recovery/root/usb.rc \
     device/samsung/charge/ueventd.smdkc110.rc:root/ueventd.smdkc110.rc \
-    device/samsung/charge/lpm.rc:root/lpm.rc \
-    device/samsung/charge/enable_vibrator.sh:root/sbin/enable_vibrator.sh
+    device/samsung/charge/lpm.rc:root/lpm.rc
 
 # kernel modules for ramdisk
 PRODUCT_COPY_FILES += \

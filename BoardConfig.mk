@@ -84,6 +84,9 @@ BOARD_EGL_CFG := device/samsung/charge/prebuilt/lib/egl/egl.cfg
 USE_OPENGL_RENDERER := true
 BOARD_USE_SKIA_LCDTEXT := true
 
+# vibrator
+BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/samsung/charge/vibrator/tspdrv.c
+
 # Device related defines
 
 TARGET_PREBUILT_KERNEL := device/samsung/charge/kernel

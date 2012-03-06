@@ -422,11 +422,3 @@ service gps-daemon /system/bin/gpsd
     user system
     group system inet
 
-service enable_vibrator /sbin/enable_vibrator.sh
-    class late_start
-    disabled
-    oneshot
-
-on property:sys.boot_completed=1
-    start enable_vibrator
-
