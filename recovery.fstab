@@ -2,7 +2,7 @@
 
 /boot       bml     boot
 /cache      ext4    /dev/block/mmcblk0p3
-/data       ext4    /dev/block/mmcblk0p1
+/data       ext4    /dev/block/mmcblk0p1	length=-16384
 /datadata   ext4    /dev/block/stl11
 /recovery   bml     recovery
 /sdcard     vfat    /dev/block/mmcblk1p1
