@@ -61,6 +61,7 @@ lib/libsec-ril40-cdma.so
 lib/libsecril-client.so
 
 bin/gpsd
+etc/gps.conf
 lib/hw/gps.s5pc110.so
 
 bin/pvrsrvinit
@@ -218,6 +219,7 @@ PRODUCT_COPY_FILES += \\
 #
 PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/bin/gpsd:system/bin/gpsd \\
+    vendor/samsung/__DEVICE__/proprietary/etc/gps.conf:system/etc/gps.conf \\
     vendor/samsung/__DEVICE__/proprietary/lib/hw/gps.s5pc110.so:system/lib/hw/gps.s5pc110.so
 
 #
