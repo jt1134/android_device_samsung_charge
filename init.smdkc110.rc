@@ -379,7 +379,8 @@ service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
     disabled
     oneshot
 
-service hciattach /system/bin/brcm_patchram_plus --enable_hci --baudrate 3000000 --patchram /system/bin/BCM4329B1_002.002.023.0746.0818.hcd /dev/s3c2410_serial0
+service hciattach /system/bin/brcm_patchram_plus --enable_hci --baudrate 3000000 \
+    --patchram /system/vendor/firmware/bcm4329.hcd /dev/s3c2410_serial0
     class main
     user bluetooth
     group bluetooth net_bt_admin

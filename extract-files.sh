@@ -86,7 +86,7 @@ lib/hw/sensors.s5pc110.so
 lib/hw/lights.s5pc110.so
 vendor/lib/hw/gralloc.s5pc110.so
 
-bin/BCM4329B1_002.002.023.0746.0818.hcd
+vendor/firmware/bcm4329.hcd
 
 bin/playlpm
 bin/charging_mode
@@ -226,7 +226,7 @@ PRODUCT_COPY_FILES += \\
 # bluetooth
 #
 PRODUCT_COPY_FILES += \\
-    vendor/samsung/__DEVICE__/proprietary/bin/BCM4329B1_002.002.023.0746.0818.hcd:system/bin/BCM4329B1_002.002.023.0746.0818.hcd
+    vendor/samsung/__DEVICE__/proprietary/vendor/firmware/bcm4329.hcd:system/vendor/firmware/bcm4329.hcd
 
 #
 # Files for battery charging screen

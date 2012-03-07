@@ -67,6 +67,10 @@ PRODUCT_COPY_FILES += \
     device/samsung/charge/prebuilt/usr/keylayout/Broadcom_Bluetooth_HID.kl:system/usr/keylayout/Broadcom_Bluetooth_HID.kl \
     device/samsung/charge/prebuilt/usr/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl
 
+# bluetooth
+PRODUCT_COPY_FILES += \
+    device/samsung/charge/prebuilt/etc/bluetooth/main.conf:system/etc/bluetooth/main.conf
+
 # Generated kcm keymaps
 PRODUCT_PACKAGES := \
     s3c-keypad.kcm
