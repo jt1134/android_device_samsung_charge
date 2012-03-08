@@ -83,7 +83,6 @@ bin/orientationd
 lib/libsensor_yamaha_test.so
 lib/hw/sensors.s5pc110.so
 
-lib/hw/lights.s5pc110.so
 vendor/lib/hw/gralloc.s5pc110.so
 
 vendor/firmware/bcm4329.hcd
@@ -199,8 +198,7 @@ PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/bin/geomagneticd:system/bin/geomagneticd \\
     vendor/samsung/__DEVICE__/proprietary/bin/orientationd:system/bin/orientationd \\
     vendor/samsung/__DEVICE__/proprietary/lib/hw/sensors.s5pc110.so:system/lib/hw/sensors.s5pc110.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/libsensor_yamaha_test.so:system/lib/libsensor_yamaha_test.so \\
-    vendor/samsung/__DEVICE__/proprietary/lib/hw/lights.s5pc110.so:system/lib/hw/lights.s5pc110.so
+    vendor/samsung/__DEVICE__/proprietary/lib/libsensor_yamaha_test.so:system/lib/libsensor_yamaha_test.so
 
 #
 # RIL

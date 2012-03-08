@@ -95,6 +95,9 @@ on fs
     chmod 0664 /sys/class/lcd/s5p_lcd/lcd_power
     chown radio system /sys/class/lcd/s5p_lcd/lcd_power
 
+# keypad backlight
+    chown system system /sys/class/key/key/brightness
+
 on post-fs
 
     chown radio radio /dev/multipdp
