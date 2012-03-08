@@ -107,6 +107,10 @@ PRODUCT_PACKAGES += \
     libs3cjpeg \
     libstagefrighthw
 
+# lights
+PRODUCT_PACKAGES += \
+    lights.s5pc110
+
 # Install the features available on this device.
 PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
