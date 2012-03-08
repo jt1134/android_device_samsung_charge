@@ -123,4 +123,13 @@
          rotations as the default behavior. -->
     <bool name="config_allowAllRotations">true</bool>
 
+    <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
+    <bool name="config_intrusiveNotificationLed">true</bool>
+
+    <!-- disable menu hard key in non-pattern lockscreen -->
+    <bool name="config_disableMenuKeyInLockScreen">true</bool>
+
+    <!-- Minimum screen brightness allowed by the power manager. -->
+    <integer name="config_screenBrightnessDim">10</integer>
+
 </resources>
