@@ -132,7 +132,7 @@ PRODUCT_PROPERTY_OVERRIDES := \
 
 # radio stuff
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.cdma.home.operator.numeric=310012 \
+    ro.cdma.home.operator.numeric=311480 \
     ro.cdma.home.operator.alpha=VzW \
     ro.cdma.homesystem=64,65,76,77,78,79,80,81,82,83 \
     ro.cdma.data_retry_config=default_randomization=2000,0,0,120000,180000,540000,960000 \
