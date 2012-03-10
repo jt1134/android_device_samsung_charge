@@ -426,3 +426,9 @@ service gps-daemon /system/bin/gpsd
     user system
     group system inet
 
+on property:ril.cdma.data_state=1
+  restart pppd_cdma
+
+on property:ril.cdma.data_state=0
+  stop pppd_cdma
+
