@@ -1,6 +1,8 @@
 # Release name
 PRODUCT_RELEASE_NAME := Charge
 
+TARGET_BOOTANIMATION_NAME := vertical-480x800
+
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
