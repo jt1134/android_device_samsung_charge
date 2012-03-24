@@ -426,6 +426,16 @@ service gps-daemon /system/bin/gpsd
     user system
     group system inet
 
+service tvout /system/bin/tvoutserver
+    class late_start
+    user system
+    group graphics
+
+service tvouthack /system/bin/tvouthack
+    user system
+    group graphics
+    disabled
+
 on property:ril.cdma.data_state=1
   restart pppd_cdma
 

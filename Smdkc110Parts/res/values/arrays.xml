@@ -1,0 +1,11 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string-array name="tvout_system_entries">
+        <item>NTSC</item>
+        <item>PAL</item>
+    </string-array>
+
+    <string-array name="tvout_system_entries_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

@@ -87,6 +87,16 @@ vendor/lib/hw/gralloc.s5pc110.so
 
 vendor/firmware/bcm4329.hcd
 
+bin/tvoutserver
+lib/libddc.so
+lib/libedid.so
+lib/lib_tvoutengine.so
+lib/libtvoutfimc.so
+lib/libtvouthdmi.so
+lib/libtvout_jni.so
+lib/libtvoutservice.so
+lib/libtvout.so
+
 bin/playlpm
 bin/charging_mode
 lib/libQmageDecoder.so
@@ -225,6 +235,20 @@ PRODUCT_COPY_FILES += \\
 #
 PRODUCT_COPY_FILES += \\
     vendor/samsung/__DEVICE__/proprietary/vendor/firmware/bcm4329.hcd:system/vendor/firmware/bcm4329.hcd
+
+#
+# tvout
+#
+PRODUCT_COPY_FILES += \
+    vendor/samsung/__DEVICE__/proprietary/bin/tvoutserver:system/bin/tvoutserver \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libddc.so:system/lib/libddc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libedid.so:system/lib/libedid.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/lib_tvoutengine.so:system/lib/lib_tvoutengine.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libtvoutfimc.so:system/lib/libtvoutfimc.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libtvouthdmi.so:system/lib/libtvouthdmi.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libtvoutservice.so:system/lib/libtvoutservice.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libtvout_jni.so:system/lib/libtvout_jni.so \\
+    vendor/samsung/__DEVICE__/proprietary/lib/libtvout.so:system/lib/libtvout.so
 
 #
 # Files for battery charging screen

@@ -115,6 +115,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lights.s5pc110
 
+# Device-specific packages
+PRODUCT_PACKAGES += \
+    Smdkc110Parts \
+    tvouthack
+
 # Install the features available on this device.
 PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
