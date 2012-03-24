@@ -16,7 +16,7 @@
 			android:summary="@string/tvout_system_summary"
 			android:entries="@array/tvout_system_entries"
 			android:entryValues="@array/tvout_system_entries_values"
-			android:defaultValue="2" />
+			android:defaultValue="1" />
 	</PreferenceCategory>
 
 </PreferenceScreen>
