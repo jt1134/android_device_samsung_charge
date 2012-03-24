@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Configurações do Galaxy Tab</string>
+    <string name="app_name">Configurações do SMDKC110</string>
 
     <string name="category_tvout_title">Saída de TV</string>
     <string name="tvout_enable_head">Saída de TV</string>
