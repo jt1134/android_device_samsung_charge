@@ -151,7 +151,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     net.connectivity.type=CDMA1 \
     net.interfaces.defaultroute=cdma \
     ro.telephony.ril_class=SamsungChargeRIL \
-    ro.telephony.ril.v3=datacall
+    ro.telephony.ril.v3=datacall \
     mobiledata.interfaces=eth0,ppp0
 
 # These are the hardware-specific settings that are stored in system properties.
