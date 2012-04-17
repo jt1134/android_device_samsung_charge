@@ -89,7 +89,9 @@ BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/samsung/charge/vibrator/tspdrv
 
 # Device related defines
 
-TARGET_PREBUILT_KERNEL := device/samsung/charge/kernel
+TARGET_KERNEL_SOURCE := kernel/samsung/charge
+TARGET_KERNEL_CONFIG := charge_defconfig
+
 BOARD_KERNEL_CMDLINE := no_console_suspend=1 console=null
 BOARD_KERNEL_BASE := 0x02e00000
 
