@@ -31,6 +31,7 @@ loglevel 9
     insmod /lib/modules/rfs_fat.ko
     insmod /lib/modules/j4fs.ko
     insmod /lib/modules/storage.ko
+    insmod /lib/modules/nvstorage.ko
 
     mkdir /mnt/.lfs 0755 root root
     mount j4fs /dev/block/stl7 /mnt/.lfs
@@ -114,7 +115,6 @@ on post-fs
     insmod /system/lib/modules/svnet.ko
     insmod /system/lib/modules/modemctl.ko
     insmod /system/lib/modules/dpram.ko
-    insmod /system/lib/modules/nvstorage.ko
 
 # DivX DRM	
     mkdir /efs/.files 0775

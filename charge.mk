@@ -29,15 +29,10 @@ PRODUCT_COPY_FILES := \
 
 # kernel modules for ramdisk
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,device/samsung/charge/modules/ramdisk,root/lib/modules)
+    $(call find-copy-subdir-files,*,device/samsung/charge/modules,root/lib/modules)
 
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,device/samsung/charge/modules/ramdisk,recovery/root/lib/modules)
-
-# other kernel modules not in ramdisk
-PRODUCT_COPY_FILES += $(foreach module,\
-    $(filter-out $(RAMDISK_MODULES),$(wildcard device/samsung/charge/modules/*.ko)),\
-    $(module):system/lib/modules/$(notdir $(module)))
+    $(call find-copy-subdir-files,*,device/samsung/charge/modules,recovery/root/lib/modules)
 
 # egl
 PRODUCT_COPY_FILES += \
