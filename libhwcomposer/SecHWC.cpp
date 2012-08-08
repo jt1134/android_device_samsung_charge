@@ -51,7 +51,7 @@ hwc_module_t HAL_MODULE_INFO_SYM = {
 };
 
 static void dump_layer(hwc_layer_t const* l) {
-    LOGD("\ttype=%d, flags=%08x, handle=%p, tr=%02x, blend=%04x, {%d,%d,%d,%d}, {%d,%d,%d,%d}",
+    ALOGD("\ttype=%d, flags=%08x, handle=%p, tr=%02x, blend=%04x, {%d,%d,%d,%d}, {%d,%d,%d,%d}",
             l->compositionType, l->flags, l->handle, l->transform, l->blending,
             l->sourceCrop.left,
             l->sourceCrop.top,
@@ -118,7 +118,7 @@ static int set_src_dst_info(hwc_layer_t *cur,
     dst_rect->w = win->rect_info.w;
     dst_rect->h = win->rect_info.h;
 
-    LOGV("%s::sr_x %d sr_y %d sr_w %d sr_h %d dr_x %d dr_y %d dr_w %d dr_h %d ",
+    ALOGV("%s::sr_x %d sr_y %d sr_w %d sr_h %d dr_x %d dr_y %d dr_w %d dr_h %d ",
             __func__, src_rect->x, src_rect->y, src_rect->w, src_rect->h,
             dst_rect->x, dst_rect->y, dst_rect->w, dst_rect->h);
 
@@ -128,7 +128,7 @@ static int set_src_dst_info(hwc_layer_t *cur,
 static int get_hwc_compos_decision(hwc_layer_t* cur)
 {
     if(cur->flags & HWC_SKIP_LAYER || !cur->handle) {
-        LOGV("%s::is_skip_layer %d cur->handle %x",
+        ALOGV("%s::is_skip_layer %d cur->handle %x",
                 __func__, cur->flags & HWC_SKIP_LAYER, (uint32_t)cur->handle);
         return HWC_FRAMEBUFFER;
     }
@@ -156,7 +156,7 @@ static int get_hwc_compos_decision(hwc_layer_t* cur)
     else
         compositionType = HWC_FRAMEBUFFER;
 
-    LOGV("%s::compositionType %d bpp %d format %x usage %x",
+    ALOGV("%s::compositionType %d bpp %d format %x usage %x",
             __func__,compositionType, prev_handle->uiBpp, prev_handle->iFormat,
             prev_handle->usage & GRALLOC_USAGE_PHYS_CONTIG);
 
@@ -196,7 +196,7 @@ static int assign_overlay_window(struct hwc_context_t *ctx,
     win->layer_index = layer_idx;
     win->status = HWC_WIN_RESERVED;
 
-    LOGV("%s:: win_x %d win_y %d win_w %d win_h %d lay_idx %d win_idx %d",
+    ALOGV("%s:: win_x %d win_y %d win_w %d win_h %d lay_idx %d win_idx %d",
             __func__, win->rect_info.x, win->rect_info.y, win->rect_info.w,
             win->rect_info.h, win->layer_index, win_idx );
 
@@ -231,7 +231,7 @@ static int hwc_prepare(hwc_composer_device_t *dev, hwc_layer_list_t* list)
     }
     ctx->num_of_hwc_layer = 0;
     ctx->num_of_fb_layer = 0;
-    LOGV("%s:: hwc_prepare list->numHwLayers %d", __func__, list->numHwLayers);
+    ALOGV("%s:: hwc_prepare list->numHwLayers %d", __func__, list->numHwLayers);
 
     for (int i = 0; i < list->numHwLayers ; i++) {
         hwc_layer_t* cur = &list->hwLayers[i];
@@ -262,7 +262,7 @@ static int hwc_prepare(hwc_composer_device_t *dev, hwc_layer_list_t* list)
     }
 
     if(list->numHwLayers != (ctx->num_of_fb_layer + ctx->num_of_hwc_layer))
-        LOGV("%s:: numHwLayers %d num_of_fb_layer %d num_of_hwc_layer %d ",
+        ALOGV("%s:: numHwLayers %d num_of_fb_layer %d num_of_hwc_layer %d ",
                 __func__, list->numHwLayers, ctx->num_of_fb_layer,
                 ctx->num_of_hwc_layer);
 
@@ -358,7 +358,7 @@ static int hwc_set(hwc_composer_device_t *dev,
                 ret = gpsGrallocModule->GetPhyAddrs(gpsGrallocModule,
                         cur->handle, phyAddr);
                 if (ret) {
-                    LOGE("%s::GetPhyAddrs fail : ret=%d\n", __func__, ret);
+                    ALOGE("%s::GetPhyAddrs fail : ret=%d\n", __func__, ret);
                     skipped_window_mask |= (1 << i);
                     continue;
                 }
@@ -370,7 +370,7 @@ static int hwc_set(hwc_composer_device_t *dev,
                 ret = runFimc(ctx, &src_img, &src_rect, &dst_img, &dst_rect,
                         phyAddr, cur->transform);
                 if (ret < 0){
-                   LOGE("%s::runFimc fail : ret=%d\n", __func__, ret);
+                   ALOGE("%s::runFimc fail : ret=%d\n", __func__, ret);
                    skipped_window_mask |= (1 << i);
                    continue;
                 }
@@ -378,7 +378,7 @@ static int hwc_set(hwc_composer_device_t *dev,
                 if (win->set_win_flag == 1) {
                     /* turnoff the window and set the window position with new conf... */
                     if (window_set_pos(win) < 0) {
-                        LOGE("%s::window_set_pos is failed : %s", __func__,
+                        ALOGE("%s::window_set_pos is failed : %s", __func__,
                                 strerror(errno));
                         skipped_window_mask |= (1 << i);
                         continue;
@@ -400,13 +400,13 @@ static int hwc_set(hwc_composer_device_t *dev,
                     window_show(win);
 
             } else {
-                LOGE("%s:: error : layer %d compositionType should have been \
+                ALOGE("%s:: error : layer %d compositionType should have been \
                         HWC_OVERLAY", __func__, win->layer_index);
                 skipped_window_mask |= (1 << i);
                 continue;
             }
          } else {
-             LOGE("%s:: error : window status should have been HWC_WIN_RESERVED \
+             ALOGE("%s:: error : window status should have been HWC_WIN_RESERVED \
                      by now... ", __func__);
              skipped_window_mask |= (1 << i);
              continue;
@@ -432,13 +432,13 @@ static int hwc_device_close(struct hw_device_t *dev)
 
     if (ctx) {
         if (destroyFimc(&ctx->fimc) < 0) {
-            LOGE("%s::destroyFimc fail", __func__);
+            ALOGE("%s::destroyFimc fail", __func__);
             ret = -1;
         }
 
         for (i = 0; i < NUM_OF_WIN; i++) {
             if (window_close(&ctx->win[i]) < 0) {
-                LOGE("%s::window_close() fail", __func__);
+                ALOGE("%s::window_close() fail", __func__);
                 ret = -1;
             }
         }
@@ -488,7 +488,7 @@ static int hwc_device_open(const struct hw_module_t* module, const char* name,
     /* open WIN0 & WIN1 here */
     for (int i = 0; i < NUM_OF_WIN; i++) {
         if (window_open(&(dev->win[i]), i) < 0) {
-             LOGE("%s:: Failed to open window %d device ", __func__, i);
+             ALOGE("%s:: Failed to open window %d device ", __func__, i);
              status = -EINVAL;
              goto err;
         }
@@ -496,7 +496,7 @@ static int hwc_device_open(const struct hw_module_t* module, const char* name,
 
     /* get default window config */
     if (window_get_global_lcd_info(&dev->lcd_info) < 0) {
-        LOGE("%s::window_get_global_lcd_info is failed : %s",
+        ALOGE("%s::window_get_global_lcd_info is failed : %s",
 				__func__, strerror(errno));
         status = -EINVAL;
         goto err;
@@ -516,14 +516,14 @@ static int hwc_device_open(const struct hw_module_t* module, const char* name,
         win->rect_info.h = win->var_info.yres;
 
         if (window_set_pos(win) < 0) {
-            LOGE("%s::window_set_pos is failed : %s",
+            ALOGE("%s::window_set_pos is failed : %s",
 					__func__, strerror(errno));
             status = -EINVAL;
             goto err;
         }
 
         if (window_get_info(win) < 0) {
-            LOGE("%s::window_get_info is failed : %s",
+            ALOGE("%s::window_get_info is failed : %s",
 					__func__, strerror(errno));
             status = -EINVAL;
             goto err;
@@ -532,35 +532,35 @@ static int hwc_device_open(const struct hw_module_t* module, const char* name,
         win->size = win->fix_info.line_length * win->var_info.yres;
 
         if (!win->fix_info.smem_start){
-            LOGE("%s:: win-%d failed to get the reserved memory", __func__, i);
+            ALOGE("%s:: win-%d failed to get the reserved memory", __func__, i);
             status = -EINVAL;
             goto err;
         }
 
         for (int j = 0; j < NUM_OF_WIN_BUF; j++) {
             win->addr[j] = win->fix_info.smem_start + (win->size * j);
-            LOGI("%s::win-%d add[%d] %x ", __func__, i, j, win->addr[j]);
+            ALOGI("%s::win-%d add[%d] %x ", __func__, i, j, win->addr[j]);
         }
     }
 
     /* open pp */
     if (createFimc(&dev->fimc) < 0) {
-        LOGE("%s::creatFimc() fail", __func__);
+        ALOGE("%s::creatFimc() fail", __func__);
         status = -EINVAL;
         goto err;
     }
 
-    LOGD("%s:: success\n", __func__);
+    ALOGD("%s:: success\n", __func__);
 
     return 0;
 
 err:
     if (destroyFimc(&dev->fimc) < 0)
-        LOGE("%s::destroyFimc() fail", __func__);
+        ALOGE("%s::destroyFimc() fail", __func__);
 
     for (int i = 0; i < NUM_OF_WIN; i++) {
         if (window_close(&dev->win[i]) < 0)
-            LOGE("%s::window_close() fail", __func__);
+            ALOGE("%s::window_close() fail", __func__);
     }
 
     return status;
