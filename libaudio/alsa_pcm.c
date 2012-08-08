@@ -153,35 +153,35 @@ static void param_dump(struct snd_pcm_hw_params *p)
     for (n = SNDRV_PCM_HW_PARAM_FIRST_MASK;
          n <= SNDRV_PCM_HW_PARAM_LAST_MASK; n++) {
             struct snd_mask *m = param_to_mask(p, n);
-            LOGV("%s = %08x%08x\n", param_name[n],
+            ALOGV("%s = %08x%08x\n", param_name[n],
                    m->bits[1], m->bits[0]);
     }
     for (n = SNDRV_PCM_HW_PARAM_FIRST_INTERVAL;
          n <= SNDRV_PCM_HW_PARAM_LAST_INTERVAL; n++) {
             struct snd_interval *i = param_to_interval(p, n);
-            LOGV("%s = (%d,%d) omin=%d omax=%d int=%d empty=%d\n",
+            ALOGV("%s = (%d,%d) omin=%d omax=%d int=%d empty=%d\n",
                    param_name[n], i->min, i->max, i->openmin,
                    i->openmax, i->integer, i->empty);
     }
-    LOGV("info = %08x\n", p->info);
-    LOGV("msbits = %d\n", p->msbits);
-    LOGV("rate = %d/%d\n", p->rate_num, p->rate_den);
-    LOGV("fifo = %d\n", (int) p->fifo_size);
+    ALOGV("info = %08x\n", p->info);
+    ALOGV("msbits = %d\n", p->msbits);
+    ALOGV("rate = %d/%d\n", p->rate_num, p->rate_den);
+    ALOGV("fifo = %d\n", (int) p->fifo_size);
 }
 
 static void info_dump(struct snd_pcm_info *info)
 {
-    LOGV("device = %d\n", info->device);
-    LOGV("subdevice = %d\n", info->subdevice);
-    LOGV("stream = %d\n", info->stream);
-    LOGV("card = %d\n", info->card);
-    LOGV("id = '%s'\n", info->id);
-    LOGV("name = '%s'\n", info->name);
-    LOGV("subname = '%s'\n", info->subname);
-    LOGV("dev_class = %d\n", info->dev_class);
-    LOGV("dev_subclass = %d\n", info->dev_subclass);
-    LOGV("subdevices_count = %d\n", info->subdevices_count);
-    LOGV("subdevices_avail = %d\n", info->subdevices_avail);
+    ALOGV("device = %d\n", info->device);
+    ALOGV("subdevice = %d\n", info->subdevice);
+    ALOGV("stream = %d\n", info->stream);
+    ALOGV("card = %d\n", info->card);
+    ALOGV("id = '%s'\n", info->id);
+    ALOGV("name = '%s'\n", info->name);
+    ALOGV("subname = '%s'\n", info->subname);
+    ALOGV("dev_class = %d\n", info->dev_class);
+    ALOGV("dev_subclass = %d\n", info->dev_subclass);
+    ALOGV("subdevices_count = %d\n", info->subdevices_count);
+    ALOGV("subdevices_avail = %d\n", info->subdevices_avail);
 }
 #else
 static void param_dump(struct snd_pcm_hw_params *p) {}
@@ -267,7 +267,7 @@ int pcm_read(struct pcm *pcm, void *data, unsigned count)
     x.buf = data;
     x.frames = (pcm->flags & PCM_MONO) ? (count / 2) : (count / 4);
 
-//    LOGV("read() %d frames", x.frames);
+//    ALOGV("read() %d frames", x.frames);
     for (;;) {
         if (!pcm->running) {
             if (ioctl(pcm->fd, SNDRV_PCM_IOCTL_PREPARE))
@@ -285,7 +285,7 @@ int pcm_read(struct pcm *pcm, void *data, unsigned count)
             }
             return oops(pcm, errno, "cannot read stream data");
         }
-//        LOGV("read() got %d frames", x.frames);
+//        ALOGV("read() got %d frames", x.frames);
         return 0;
     }
 }
@@ -317,7 +317,7 @@ struct pcm *pcm_open(unsigned flags)
     unsigned period_sz;
     unsigned period_cnt;
 
-    LOGV("pcm_open(0x%08x)",flags);
+    ALOGV("pcm_open(0x%08x)",flags);
 
     pcm = calloc(1, sizeof(struct pcm));
     if (!pcm)
@@ -329,10 +329,10 @@ struct pcm *pcm_open(unsigned flags)
         dname = "/dev/snd/pcmC0D0p";
     }
 
-    LOGV("pcm_open() period sz multiplier %d",
+    ALOGV("pcm_open() period sz multiplier %d",
          ((flags & PCM_PERIOD_SZ_MASK) >> PCM_PERIOD_SZ_SHIFT) + 1);
     period_sz = 128 * (((flags & PCM_PERIOD_SZ_MASK) >> PCM_PERIOD_SZ_SHIFT) + 1);
-    LOGV("pcm_open() period cnt %d",
+    ALOGV("pcm_open() period cnt %d",
          ((flags & PCM_PERIOD_CNT_MASK) >> PCM_PERIOD_CNT_SHIFT) + PCM_PERIOD_CNT_MIN);
     period_cnt = ((flags & PCM_PERIOD_CNT_MASK) >> PCM_PERIOD_CNT_SHIFT) + PCM_PERIOD_CNT_MIN;
 
@@ -349,7 +349,7 @@ struct pcm *pcm_open(unsigned flags)
     }
     info_dump(&info);
 
-    LOGV("pcm_open() period_cnt %d period_sz %d channels %d",
+    ALOGV("pcm_open() period_cnt %d period_sz %d channels %d",
          period_cnt, period_sz, (flags & PCM_MONO) ? 1 : 2);
 
     param_init(&params);

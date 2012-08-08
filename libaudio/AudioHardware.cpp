@@ -33,7 +33,6 @@
 #include <fcntl.h>
 
 #include "AudioHardware.h"
-#include <media/AudioRecord.h>
 #include <hardware_legacy/power.h>
 
 extern "C" {
@@ -164,7 +163,7 @@ void AudioHardware::closeOutputStream(AudioStreamOut* out) {
     {
         Mutex::Autolock lock(mLock);
         if (mOutput == 0 || mOutput.get() != out) {
-            LOGW("Attempt to close invalid output stream");
+            ALOGW("Attempt to close invalid output stream");
             return;
         }
         spOut = mOutput;
@@ -208,7 +207,7 @@ AudioStreamIn* AudioHardware::openInputStream(
         *status = rc;
     }
 
-    LOGV("AudioHardware::openInputStream()%p", in.get());
+    ALOGV("AudioHardware::openInputStream()%p", in.get());
     return in.get();
 }
 
@@ -220,13 +219,13 @@ void AudioHardware::closeInputStream(AudioStreamIn* in) {
 
         ssize_t index = mInputs.indexOf((AudioStreamInALSA *)in);
         if (index < 0) {
-            LOGW("Attempt to close invalid input stream");
+            ALOGW("Attempt to close invalid input stream");
             return;
         }
         spIn = mInputs[index];
         mInputs.removeAt(index);
     }
-    LOGV("AudioHardware::closeInputStream()%p", in);
+    ALOGV("AudioHardware::closeInputStream()%p", in);
     spIn.clear();
 }
 
@@ -278,19 +277,19 @@ status_t AudioHardware::setMode(int mode)
 
     int prevMode = mMode;
     status = AudioHardwareBase::setMode(mode);
-    LOGV("setMode() : new %d, old %d", mMode, prevMode);
+    ALOGV("setMode() : new %d, old %d", mMode, prevMode);
     if (status == NO_ERROR) {
         if (mMode == AudioSystem::MODE_IN_CALL && !mInCallAudioMode) {
             if (spOut != 0) {
-                LOGV("setMode() in call force output standby");
+                ALOGV("setMode() in call force output standby");
                 spOut->doStandby_l();
             }
             if (spIn != 0) {
-                LOGV("setMode() in call force input standby");
+                ALOGV("setMode() in call force input standby");
                 spIn->doStandby_l();
             }
 
-            LOGV("setMode() openPcmOut_l()");
+            ALOGV("setMode() openPcmOut_l()");
             openPcmOut_l();
             openMixer_l();
             setInputSource_l(AUDIO_SOURCE_DEFAULT);
@@ -303,22 +302,22 @@ status_t AudioHardware::setMode(int mode)
                 struct mixer_ctl *ctl= mixer_get_control(mMixer, "Playback Path", 0);
                 TRACE_DRIVER_OUT
                 if (ctl != NULL) {
-                    LOGV("setMode() reset Playback Path to RCV");
+                    ALOGV("setMode() reset Playback Path to RCV");
                     TRACE_DRIVER_IN(DRV_MIXER_SEL)
                     mixer_ctl_select(ctl, "RCV");
                     TRACE_DRIVER_OUT
                 }
             }
-            LOGV("setMode() closePcmOut_l()");
+            ALOGV("setMode() closePcmOut_l()");
             closeMixer_l();
             closePcmOut_l();
 
             if (spOut != 0) {
-                LOGV("setMode() off call force output standby");
+                ALOGV("setMode() off call force output standby");
                 spOut->doStandby_l();
             }
             if (spIn != 0) {
-                LOGV("setMode() off call force input standby");
+                ALOGV("setMode() off call force input standby");
                 spIn->doStandby_l();
             }
 
@@ -338,7 +337,7 @@ status_t AudioHardware::setMode(int mode)
 
 status_t AudioHardware::setMicMute(bool state)
 {
-    LOGV("setMicMute(%d) mMicMute %d", state, mMicMute);
+    ALOGV("setMicMute(%d) mMicMute %d", state, mMicMute);
     sp<AudioStreamInALSA> spIn;
     {
         AutoMutex lock(mLock);
@@ -380,7 +379,7 @@ status_t AudioHardware::setParameters(const String8& keyValuePairs)
             mBluetoothNrec = true;
         } else {
             mBluetoothNrec = false;
-            LOGD("Turning noise reduction and echo cancellation off for BT "
+            ALOGD("Turning noise reduction and echo cancellation off for BT "
                  "headset");
         }
         param.remove(String8(BT_NREC_KEY));
@@ -402,7 +401,7 @@ status_t AudioHardware::setParameters(const String8& keyValuePairs)
         }
 
         if (ttyMode != mTTYMode) {
-            LOGV("new tty mode %d", ttyMode);
+            ALOGV("new tty mode %d", ttyMode);
             mTTYMode = ttyMode;
             if (mOutput != 0 && mMode == AudioSystem::MODE_IN_CALL) {
                 setIncallPath_l(mOutput->device());
@@ -419,7 +418,7 @@ String8 AudioHardware::getParameters(const String8& keys)
     AudioParameter request = AudioParameter(keys);
     AudioParameter reply = AudioParameter();
 
-    LOGV("getParameters() %s", keys.string());
+    ALOGV("getParameters() %s", keys.string());
 
     return reply.toString();
 }
@@ -427,16 +426,16 @@ String8 AudioHardware::getParameters(const String8& keys)
 size_t AudioHardware::getInputBufferSize(uint32_t sampleRate, int format, int channelCount)
 {
     if (format != AudioSystem::PCM_16_BIT) {
-        LOGW("getInputBufferSize bad format: %d", format);
+        ALOGW("getInputBufferSize bad format: %d", format);
         return 0;
     }
     if (channelCount < 1 || channelCount > 2) {
-        LOGW("getInputBufferSize bad channel count: %d", channelCount);
+        ALOGW("getInputBufferSize bad channel count: %d", channelCount);
         return 0;
     }
     if (sampleRate != 8000 && sampleRate != 11025 && sampleRate != 16000 &&
             sampleRate != 22050 && sampleRate != 44100) {
-        LOGW("getInputBufferSize bad sample rate: %d", sampleRate);
+        ALOGW("getInputBufferSize bad sample rate: %d", sampleRate);
         return 0;
     }
 
@@ -446,7 +445,7 @@ size_t AudioHardware::getInputBufferSize(uint32_t sampleRate, int format, int ch
 
 status_t AudioHardware::setVoiceVolume(float volume)
 {
-    LOGD("### setVoiceVolume: %f", volume);
+    ALOGD("### setVoiceVolume: %f", volume);
 
     AutoMutex lock(mLock);
 
@@ -474,7 +473,7 @@ status_t AudioHardware::setVoiceVolume(float volume)
         TRACE_DRIVER_OUT
 
         if (ctl != NULL) {
-            LOGV("setVoiceVolume() set %s to %f", name, volume);
+            ALOGV("setVoiceVolume() set %s to %f", name, volume);
             TRACE_DRIVER_IN(DRV_MIXER_SET)
             mixer_ctl_set(ctl, volume * 100);
             TRACE_DRIVER_OUT
@@ -486,7 +485,7 @@ status_t AudioHardware::setVoiceVolume(float volume)
 
 status_t AudioHardware::setMasterVolume(float volume)
 {
-    LOGV("Set master volume to %f.\n", volume);
+    ALOGV("Set master volume to %f.\n", volume);
     // We return an error code here to let the audioflinger do in-software
     // volume on top of the maximum volume that we set through the SND API.
     // return error - software mixer will handle it
@@ -563,15 +562,15 @@ status_t AudioHardware::dump(int fd, const Vector<String16>& args)
 
 status_t AudioHardware::setIncallPath_l(uint32_t device)
 {
-    LOGV("setIncallPath_l: device %x", device);
+    ALOGV("setIncallPath_l: device %x", device);
 
     if (mMixer != NULL) {
         TRACE_DRIVER_IN(DRV_MIXER_GET)
         struct mixer_ctl *ctl= mixer_get_control(mMixer, "Voice Call Path", 0);
         TRACE_DRIVER_OUT
-        LOGE_IF(ctl == NULL, "setIncallPath_l() could not get mixer ctl");
+        ALOGE_IF(ctl == NULL, "setIncallPath_l() could not get mixer ctl");
         if (ctl != NULL) {
-            LOGV("setIncallPath_l() Voice Call Path, (%x)", device);
+            ALOGV("setIncallPath_l() Voice Call Path, (%x)", device);
             const char *router = getVoiceRouteFromDevice(device);
             TRACE_DRIVER_IN(DRV_MIXER_SEL)
             mixer_ctl_select(ctl,router);
@@ -583,10 +582,10 @@ status_t AudioHardware::setIncallPath_l(uint32_t device)
 
 struct pcm *AudioHardware::openPcmOut_l()
 {
-    LOGD("openPcmOut_l() mPcmOpenCnt: %d", mPcmOpenCnt);
+    ALOGD("openPcmOut_l() mPcmOpenCnt: %d", mPcmOpenCnt);
     if (mPcmOpenCnt++ == 0) {
         if (mPcm != NULL) {
-            LOGE("openPcmOut_l() mPcmOpenCnt == 0 and mPcm == %p\n", mPcm);
+            ALOGE("openPcmOut_l() mPcmOpenCnt == 0 and mPcm == %p\n", mPcm);
             mPcmOpenCnt--;
             return NULL;
         }
@@ -599,7 +598,7 @@ struct pcm *AudioHardware::openPcmOut_l()
         mPcm = pcm_open(flags);
         TRACE_DRIVER_OUT
         if (!pcm_ready(mPcm)) {
-            LOGE("openPcmOut_l() cannot open pcm_out driver: %s\n", pcm_error(mPcm));
+            ALOGE("openPcmOut_l() cannot open pcm_out driver: %s\n", pcm_error(mPcm));
             TRACE_DRIVER_IN(DRV_PCM_CLOSE)
             pcm_close(mPcm);
             TRACE_DRIVER_OUT
@@ -612,9 +611,9 @@ struct pcm *AudioHardware::openPcmOut_l()
 
 void AudioHardware::closePcmOut_l()
 {
-    LOGD("closePcmOut_l() mPcmOpenCnt: %d", mPcmOpenCnt);
+    ALOGD("closePcmOut_l() mPcmOpenCnt: %d", mPcmOpenCnt);
     if (mPcmOpenCnt == 0) {
-        LOGE("closePcmOut_l() mPcmOpenCnt == 0");
+        ALOGE("closePcmOut_l() mPcmOpenCnt == 0");
         return;
     }
 
@@ -628,10 +627,10 @@ void AudioHardware::closePcmOut_l()
 
 struct mixer *AudioHardware::openMixer_l()
 {
-    LOGV("openMixer_l() mMixerOpenCnt: %d", mMixerOpenCnt);
+    ALOGV("openMixer_l() mMixerOpenCnt: %d", mMixerOpenCnt);
     if (mMixerOpenCnt++ == 0) {
         if (mMixer != NULL) {
-            LOGE("openMixer_l() mMixerOpenCnt == 0 and mMixer == %p\n", mMixer);
+            ALOGE("openMixer_l() mMixerOpenCnt == 0 and mMixer == %p\n", mMixer);
             mMixerOpenCnt--;
             return NULL;
         }
@@ -639,7 +638,7 @@ struct mixer *AudioHardware::openMixer_l()
         mMixer = mixer_open();
         TRACE_DRIVER_OUT
         if (mMixer == NULL) {
-            LOGE("openMixer_l() cannot open mixer");
+            ALOGE("openMixer_l() cannot open mixer");
             mMixerOpenCnt--;
             return NULL;
         }
@@ -649,9 +648,9 @@ struct mixer *AudioHardware::openMixer_l()
 
 void AudioHardware::closeMixer_l()
 {
-    LOGV("closeMixer_l() mMixerOpenCnt: %d", mMixerOpenCnt);
+    ALOGV("closeMixer_l() mMixerOpenCnt: %d", mMixerOpenCnt);
     if (mMixerOpenCnt == 0) {
-        LOGE("closeMixer_l() mMixerOpenCnt == 0");
+        ALOGE("closeMixer_l() mMixerOpenCnt == 0");
         return;
     }
 
@@ -774,7 +773,7 @@ sp <AudioHardware::AudioStreamInALSA> AudioHardware::getActiveInput_l()
 
 status_t AudioHardware::setInputSource_l(audio_source source)
 {
-     LOGV("setInputSource_l(%d)", source);
+     ALOGV("setInputSource_l(%d)", source);
      if (source != mInputSource) {
          if ((source == AUDIO_SOURCE_DEFAULT) || (mMode != AudioSystem::MODE_IN_CALL)) {
              if (mMixer) {
@@ -805,7 +804,7 @@ status_t AudioHardware::setInputSource_l(audio_source source)
                      default:
                          return NO_INIT;
                  }
-                 LOGV("mixer_ctl_select, Input Source, (%s)", sourceName);
+                 ALOGV("mixer_ctl_select, Input Source, (%s)", sourceName);
                  TRACE_DRIVER_IN(DRV_MIXER_SEL)
                  mixer_ctl_select(ctl, sourceName);
                  TRACE_DRIVER_OUT
@@ -874,7 +873,7 @@ AudioHardware::AudioStreamOutALSA::~AudioStreamOutALSA()
 
 ssize_t AudioHardware::AudioStreamOutALSA::write(const void* buffer, size_t bytes)
 {
-    //    LOGV("AudioStreamOutALSA::write(%p, %u)", buffer, bytes);
+    //    ALOGV("AudioStreamOutALSA::write(%p, %u)", buffer, bytes);
     status_t status = NO_INIT;
     const uint8_t* p = static_cast<const uint8_t*>(buffer);
     int ret;
@@ -894,7 +893,7 @@ ssize_t AudioHardware::AudioStreamOutALSA::write(const void* buffer, size_t byte
         if (mStandby) {
             AutoMutex hwLock(mHardware->lock());
 
-            LOGD("AudioStreamOutALSA::write: AudioHardware pcm playback is exiting standby.");
+            ALOGD("AudioStreamOutALSA::write: AudioHardware pcm playback is exiting standby.");
             acquire_wake_lock (PARTIAL_WAKE_LOCK, "AudioOutLock");
 
             sp<AudioStreamInALSA> spIn = mHardware->getActiveInput_l();
@@ -908,7 +907,7 @@ ssize_t AudioHardware::AudioStreamOutALSA::write(const void* buffer, size_t byte
                 // while the mutex is released
                 if ((spIn == mHardware->getActiveInput_l()) &&
                         (cnt == spIn->standbyCnt())) {
-                    LOGV("AudioStreamOutALSA::write() force input standby");
+                    ALOGV("AudioStreamOutALSA::write() force input standby");
                     spIn->close_l();
                     break;
                 }
@@ -941,7 +940,7 @@ ssize_t AudioHardware::AudioStreamOutALSA::write(const void* buffer, size_t byte
         if (ret == 0) {
             return bytes;
         }
-        LOGW("write error: %d", errno);
+        ALOGW("write error: %d", errno);
         status = -errno;
     }
 Error:
@@ -974,7 +973,7 @@ void AudioHardware::AudioStreamOutALSA::doStandby_l()
     mStandbyCnt++;
 
     if (!mStandby) {
-        LOGD("AudioHardware pcm playback is going to standby.");
+        ALOGD("AudioHardware pcm playback is going to standby.");
         release_wake_lock("AudioOutLock");
         mStandby = true;
     }
@@ -997,7 +996,7 @@ void AudioHardware::AudioStreamOutALSA::close_l()
 
 status_t AudioHardware::AudioStreamOutALSA::open_l()
 {
-    LOGV("open pcm_out driver");
+    ALOGV("open pcm_out driver");
     mPcm = mHardware->openPcmOut_l();
     if (mPcm == NULL) {
         return NO_INIT;
@@ -1005,14 +1004,14 @@ status_t AudioHardware::AudioStreamOutALSA::open_l()
 
     mMixer = mHardware->openMixer_l();
     if (mMixer) {
-        LOGV("open playback normal");
+        ALOGV("open playback normal");
         TRACE_DRIVER_IN(DRV_MIXER_GET)
         mRouteCtl = mixer_get_control(mMixer, "Playback Path", 0);
         TRACE_DRIVER_OUT
     }
     if (mHardware->mode() != AudioSystem::MODE_IN_CALL) {
         const char *route = mHardware->getOutputRouteFromDevice(mDevices);
-        LOGV("write() wakeup setting route %s", route);
+        ALOGV("write() wakeup setting route %s", route);
         if (mRouteCtl) {
             TRACE_DRIVER_IN(DRV_MIXER_SEL)
             mixer_ctl_select(mRouteCtl, route);
@@ -1072,7 +1071,7 @@ status_t AudioHardware::AudioStreamOutALSA::setParameters(const String8& keyValu
 
     status_t status = NO_ERROR;
     int device;
-    LOGD("AudioStreamOutALSA::setParameters() %s", keyValuePairs.string());
+    ALOGD("AudioStreamOutALSA::setParameters() %s", keyValuePairs.string());
 
     if (mHardware == NULL) return NO_INIT;
 
@@ -1116,7 +1115,7 @@ String8 AudioHardware::AudioStreamOutALSA::getParameters(const String8& keys)
         param.addInt(key, (int)mDevices);
     }
 
-    LOGV("AudioStreamOutALSA::getParameters() %s", param.toString().string());
+    ALOGV("AudioStreamOutALSA::getParameters() %s", param.toString().string());
     return param.toString();
 }
 
@@ -1182,7 +1181,7 @@ status_t AudioHardware::AudioStreamInALSA::set(
 
     mHardware = hw;
 
-    LOGV("AudioStreamInALSA::set(%d, %d, %u)", *pFormat, *pChannels, *pRate);
+    ALOGV("AudioStreamInALSA::set(%d, %d, %u)", *pFormat, *pChannels, *pRate);
 
     mBufferSize = getBufferSize(*pRate, AudioSystem::popCount(*pChannels));
     mDevices = devices;
@@ -1197,7 +1196,7 @@ status_t AudioHardware::AudioStreamInALSA::set(
         status_t status = mDownSampler->initCheck();
         if (status != NO_ERROR) {
             delete mDownSampler;
-            LOGW("AudioStreamInALSA::set() downsampler init failed: %d", status);
+            ALOGW("AudioStreamInALSA::set() downsampler init failed: %d", status);
             return status;
         }
 
@@ -1219,7 +1218,7 @@ AudioHardware::AudioStreamInALSA::~AudioStreamInALSA()
 
 ssize_t AudioHardware::AudioStreamInALSA::read(void* buffer, ssize_t bytes)
 {
-    //    LOGV("AudioStreamInALSA::read(%p, %u)", buffer, bytes);
+    //    ALOGV("AudioStreamInALSA::read(%p, %u)", buffer, bytes);
     status_t status = NO_INIT;
     int ret;
 
@@ -1237,7 +1236,7 @@ ssize_t AudioHardware::AudioStreamInALSA::read(void* buffer, ssize_t bytes)
         if (mStandby) {
             AutoMutex hwLock(mHardware->lock());
 
-            LOGD("AudioHardware pcm capture is exiting standby.");
+            ALOGD("AudioHardware pcm capture is exiting standby.");
             acquire_wake_lock (PARTIAL_WAKE_LOCK, "AudioInLock");
 
             sp<AudioStreamOutALSA> spOut = mHardware->output();
@@ -1253,7 +1252,7 @@ ssize_t AudioHardware::AudioStreamInALSA::read(void* buffer, ssize_t bytes)
                     // make sure that another thread did not change output state
                     // while the mutex is released
                     if ((spOut == mHardware->output()) && (cnt == spOut->standbyCnt())) {
-                        LOGV("AudioStreamInALSA::read() force output standby");
+                        ALOGV("AudioStreamInALSA::read() force output standby");
                         spOut->close_l();
                         break;
                     }
@@ -1307,7 +1306,7 @@ ssize_t AudioHardware::AudioStreamInALSA::read(void* buffer, ssize_t bytes)
             return bytes;
         }
 
-        LOGW("read error: %d", ret);
+        ALOGW("read error: %d", ret);
         status = ret;
     }
 
@@ -1340,7 +1339,7 @@ void AudioHardware::AudioStreamInALSA::doStandby_l()
     mStandbyCnt++;
 
     if (!mStandby) {
-        LOGD("AudioHardware pcm capture is going to standby.");
+        ALOGD("AudioHardware pcm capture is going to standby.");
         release_wake_lock("AudioInLock");
         mStandby = true;
     }
@@ -1373,12 +1372,12 @@ status_t AudioHardware::AudioStreamInALSA::open_l()
     flags |= (AUDIO_HW_IN_PERIOD_CNT - PCM_PERIOD_CNT_MIN)
             << PCM_PERIOD_CNT_SHIFT;
 
-    LOGV("open pcm_in driver");
+    ALOGV("open pcm_in driver");
     TRACE_DRIVER_IN(DRV_PCM_OPEN)
     mPcm = pcm_open(flags);
     TRACE_DRIVER_OUT
     if (!pcm_ready(mPcm)) {
-        LOGE("cannot open pcm_in driver: %s\n", pcm_error(mPcm));
+        ALOGE("cannot open pcm_in driver: %s\n", pcm_error(mPcm));
         TRACE_DRIVER_IN(DRV_PCM_CLOSE)
         pcm_close(mPcm);
         TRACE_DRIVER_OUT
@@ -1400,7 +1399,7 @@ status_t AudioHardware::AudioStreamInALSA::open_l()
 
     if (mHardware->mode() != AudioSystem::MODE_IN_CALL) {
         const char *route = mHardware->getInputRouteFromDevice(mDevices);
-        LOGV("read() wakeup setting route %s", route);
+        ALOGV("read() wakeup setting route %s", route);
         if (mRouteCtl) {
             TRACE_DRIVER_IN(DRV_MIXER_SEL)
             mixer_ctl_select(mRouteCtl, route);
@@ -1458,7 +1457,7 @@ status_t AudioHardware::AudioStreamInALSA::setParameters(const String8& keyValue
     status_t status = NO_ERROR;
     int value;
 
-    LOGD("AudioStreamInALSA::setParameters() %s", keyValuePairs.string());
+    ALOGD("AudioStreamInALSA::setParameters() %s", keyValuePairs.string());
 
     if (mHardware == NULL) return NO_INIT;
 
@@ -1510,7 +1509,7 @@ String8 AudioHardware::AudioStreamInALSA::getParameters(const String8& keys)
         param.addInt(key, (int)mDevices);
     }
 
-    LOGV("AudioStreamInALSA::getParameters() %s", param.toString().string());
+    ALOGV("AudioStreamInALSA::getParameters() %s", param.toString().string());
     return param.toString();
 }
 
@@ -1752,12 +1751,12 @@ AudioHardware::DownSampler::DownSampler(uint32_t outSampleRate,
        mTmp2Left(NULL), mTmp2Right(NULL), mOutLeft(NULL), mOutRight(NULL)
 
 {
-    LOGV("AudioHardware::DownSampler() cstor %p SR %d channels %d frames %d",
+    ALOGV("AudioHardware::DownSampler() cstor %p SR %d channels %d frames %d",
          this, mSampleRate, mChannelCount, mFrameCount);
 
     if (mSampleRate != 8000 && mSampleRate != 11025 && mSampleRate != 16000 &&
             mSampleRate != 22050) {
-        LOGW("AudioHardware::DownSampler cstor: bad sampling rate: %d", mSampleRate);
+        ALOGW("AudioHardware::DownSampler cstor: bad sampling rate: %d", mSampleRate);
         return;
     }
 
@@ -1837,7 +1836,7 @@ int AudioHardware::DownSampler::resample(int16_t* out, size_t *outFrameCount)
     }
 
     while (remaingFrames) {
-        LOGW_IF((mInOutBuf != 0), "mInOutBuf should be 0 here");
+        ALOGW_IF((mInOutBuf != 0), "mInOutBuf should be 0 here");
 
         AudioHardware::BufferProvider::Buffer buf;
         buf.frameCount =  mFrameCount - mInInBuf;

@@ -45,9 +45,6 @@ LOCAL_MODULE:= audio_policy.s5pc110
 LOCAL_MODULE_TAGS := optional
 LOCAL_STATIC_LIBRARIES := libmedia_helper
 LOCAL_WHOLE_STATIC_LIBRARIES:= libaudiopolicy_legacy
-LOCAL_SHARED_LIBRARIES:= libc libcutils libutils libmedia
-ifeq ($(BOARD_HAVE_BLUETOOTH),true)
-  LOCAL_CFLAGS += -DWITH_A2DP
-endif
+LOCAL_SHARED_LIBRARIES:= libc libcutils libutils
 include $(BUILD_SHARED_LIBRARY)
 
