@@ -34,46 +34,46 @@ int sendit(int timeout_ms)
 
     tspd = open(TSPDRV_DEVICE, O_RDWR);
     if(tspd < 0) {
-        LOGE("TSPDRV: failed on opening /dev/tspdrv\n");
+        ALOGE("TSPDRV: failed on opening /dev/tspdrv\n");
     } else {
-        LOGV("TSPDRV: opened device /dev/tspdrv\n");
+        ALOGV("TSPDRV: opened device /dev/tspdrv\n");
     }
 
     /* send tspdrv magic number */
     tspret = ioctl(tspd, TSPDRV_MAGIC_NUMBER);
     if(tspret != 0) {
-        LOGE("TSPDRV_MAGIC_NUMBER error\n");
+        ALOGE("TSPDRV_MAGIC_NUMBER error\n");
     } else {
-        LOGV("TSPDRV_MAGIC_NUMBER success\n");
+        ALOGV("TSPDRV_MAGIC_NUMBER success\n");
     }
 
     /* get number of actuators */
     actuators = ioctl(tspd, TSPDRV_GET_NUM_ACTUATORS);
     if(actuators < 1) {
-        LOGE("TSPDRV_GET_NUM_ACTUATORS error, no actuators available\n");
+        ALOGE("TSPDRV_GET_NUM_ACTUATORS error, no actuators available\n");
     } else {
-        LOGV("TSPDRV_GET_NUM_ACTUATORS success, actuators = %d\n", actuators);
+        ALOGV("TSPDRV_GET_NUM_ACTUATORS success, actuators = %d\n", actuators);
 
         if(timeout_ms > 0) {
             /* enable tspdrv amp */
             tspret = ioctl(tspd, TSPDRV_ENABLE_AMP, actuators);
             if(tspret != 0) {
-                LOGE("TSPDRV_ENABLE_AMP error\n");
+                ALOGE("TSPDRV_ENABLE_AMP error\n");
             } else {
-                LOGV("TSPDRV_ENABLE_AMP success\n");
+                ALOGV("TSPDRV_ENABLE_AMP success\n");
             }
         }
     }
 
     fd = open(THE_DEVICE, O_RDWR);
     if(fd < 0) {
-        LOGE("TSPDRV_OPEN_SYS_DEVICE error, can't open /sys device\n");
+        ALOGE("TSPDRV_OPEN_SYS_DEVICE error, can't open /sys device\n");
         return errno;
     } else {
-        LOGV("TSPDRV_OPEN_SYS_DEVICE success\n");
+        ALOGV("TSPDRV_OPEN_SYS_DEVICE success\n");
     }
 
-    LOGV("TSPDRV: timeout_ms: %d\n", timeout_ms);
+    ALOGV("TSPDRV: timeout_ms: %d\n", timeout_ms);
     nwr = sprintf(value, "%d\n", timeout_ms);
     if (nwr >= 0) {
         ret = write(fd, value, nwr);
@@ -83,18 +83,18 @@ int sendit(int timeout_ms)
         /* stop tspdrv kernel timer */
         tspret = ioctl(tspd, TSPDRV_STOP_KERNEL_TIMER);
         if(tspret != 0) {
-            LOGE("TSPDRV_STOP_KERNEL_TIMER error\n");
+            ALOGE("TSPDRV_STOP_KERNEL_TIMER error\n");
         } else {
-            LOGV("TSPDRV_STOP_KERNEL_TIMER success\n");
+            ALOGV("TSPDRV_STOP_KERNEL_TIMER success\n");
         }
 
         /* disable tspdrv amp */
         if(actuators >= 1) {
             tspret = ioctl(tspd, TSPDRV_DISABLE_AMP, actuators);
             if(tspret != 0) {
-                LOGE("TSPDRV_DISABLE_AMP error\n");
+                ALOGE("TSPDRV_DISABLE_AMP error\n");
             } else {
-                LOGV("TSPDRV_DISABLE_AMP success\n");
+                ALOGV("TSPDRV_DISABLE_AMP success\n");
             }
         }
     }
