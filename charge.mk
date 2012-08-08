@@ -38,9 +38,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/samsung/charge/prebuilt/lib/egl/egl.cfg:system/lib/egl/egl.cfg
 
-# asound.conf
+# audio_policy.conf
 PRODUCT_COPY_FILES += \
-    device/samsung/charge/prebuilt/etc/asound.conf:system/etc/asound.conf
+    device/samsung/charge/libaudio/audio_policy.conf:system/etc/audio_policy.conf
 
 # touchscreen
 PRODUCT_COPY_FILES += \
@@ -83,7 +83,8 @@ PRODUCT_PACKAGES += \
 # These are the OpenMAX IL configuration files
 PRODUCT_COPY_FILES += \
     device/samsung/charge/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry \
-    device/samsung/charge/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml
+    device/samsung/charge/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
+    device/samsung/charge/prebuilt/etc/media_codes.xml:system/etc/media_codes.xml
 
 # These are the OpenMAX IL modules
 PRODUCT_PACKAGES += \
@@ -97,14 +98,15 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     audio.primary.s5pc110 \
     audio_policy.s5pc110 \
-    audio.a2dp.default
+    audio.a2dp.default \
+    audio.usb.default
 
 # media/gfx libs
 PRODUCT_PACKAGES += \
     hwcomposer.s5pc110 \
-    camera.s5pc110 \
     libs3cjpeg \
     libstagefrighthw
+#    camera.s5pc110 \
 
 # lights
 PRODUCT_PACKAGES += \
@@ -117,16 +119,16 @@ PRODUCT_PACKAGES += \
 
 # Install the features available on this device.
 PRODUCT_COPY_FILES += \
-    frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-    frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-    frameworks/base/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
-    frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-    frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
-    frameworks/base/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
-    frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
+    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
+    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
+    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 
 # The OpenGL ES API level that is natively supported by this device.
@@ -155,9 +157,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=eth0 \
     wifi.supplicant_scan_interval=90 \
-    ro.wifi.channels=11 \
-    dalvik.vm.startheapsize=8m \
-    dalvik.vm.heapsize=48m
+    ro.wifi.channels=11
 
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
@@ -187,6 +187,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
+
+include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 
 # copy the filesystem converter
 PRODUCT_COPY_FILES += \

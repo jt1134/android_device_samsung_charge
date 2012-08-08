@@ -80,6 +80,8 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_HAVE_BLUETOOTH := true
 
 # egl shit
+TARGET_DISABLE_TRIPLE_BUFFERING := true
+BOARD_ALLOW_EGL_HIBERNATION := true
 BOARD_EGL_CFG := device/samsung/charge/prebuilt/lib/egl/egl.cfg
 USE_OPENGL_RENDERER := true
 BOARD_USE_SKIA_LCDTEXT := true
