@@ -4,9 +4,11 @@ on init
 
 loglevel 9
 
-    export EXTERNAL_STORAGE /mnt/sdcard
-    mkdir /mnt/sdcard 0000 system system
-    symlink /mnt/sdcard /sdcard
+    export EXTERNAL_STORAGE /storage/sdcard0
+    mkdir /storage 0050 system sdcard_r
+    mkdir /storage/sdcard0 0000 system system
+    symlink /storage/sdcard0 /sdcard
+    symlink /storage/sdcard0 /mnt/sdcard
 
     mkdir /efs 0771 system system
     chown system system /efs
@@ -377,7 +379,13 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dwext -ieth0 -c/data/misc/wif
     disabled
     oneshot
 
-service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
+service p2p_supplicant /system/bin/wpa_supplicant -Dwext -ieth0 -c/data/misc/wifi/wpa_supplicant.conf
+    class main
+    socket wpa_eth0 dgram 0660 wifi wifi
+    disabled
+    oneshot
+
+service dhcpcd_eth0 /system/bin/dhcpcd -aABKL
     class main
     disabled
     oneshot
