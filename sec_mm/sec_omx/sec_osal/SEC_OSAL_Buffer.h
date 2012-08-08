@@ -56,6 +56,8 @@ OMX_ERRORTYPE enableStoreMetaDataInBuffers(OMX_HANDLETYPE hComponent, OMX_PTR Co
 OMX_BOOL isMetadataBufferTypeGrallocSource(OMX_BYTE pInputDataBuffer);
 OMX_ERRORTYPE preprocessMetaDataInBuffers(OMX_HANDLETYPE hComponent, OMX_BYTE pInputDataBuffer, BUFFER_ADDRESS_INFO *pInputInfo);
 
+int isTvOutEnabled();
+
 #ifdef __cplusplus
 }
 #endif

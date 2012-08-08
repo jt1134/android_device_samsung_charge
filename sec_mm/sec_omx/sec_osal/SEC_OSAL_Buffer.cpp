@@ -47,13 +47,13 @@ extern "C" {
 }
 #endif
 
-#include <ui/android_native_buffer.h>
+#include <cutils/properties.h>
 #include <ui/GraphicBuffer.h>
 #include <ui/GraphicBufferMapper.h>
 #include <ui/Rect.h>
-#include <media/stagefright/HardwareAPI.h>
+#include <HardwareAPI.h>
 #include <hardware/hardware.h>
-#include <media/stagefright/MetadataBufferType.h>
+#include <MetadataBufferType.h>
 #include "hal_public.h"
 
 #define HAL_PIXEL_FORMAT_C110_NV12          0x100
@@ -445,6 +445,12 @@ EXIT:
     FunctionOut();
 
     return ret;
+}
+
+int isTvOutEnabled() {
+    char value[PROPERTY_VALUE_MAX];
+    property_get("init.svc.tvouthack", value, "");
+    return (strcmp(value, "running") == 0);
 }
 
 #endif
