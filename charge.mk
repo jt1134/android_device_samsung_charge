@@ -84,7 +84,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     device/samsung/charge/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry \
     device/samsung/charge/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
-    device/samsung/charge/prebuilt/etc/media_codes.xml:system/etc/media_codes.xml
+    device/samsung/charge/prebuilt/etc/media_codecs.xml:system/etc/media_codecs.xml
 
 # These are the OpenMAX IL modules
 PRODUCT_PACKAGES += \

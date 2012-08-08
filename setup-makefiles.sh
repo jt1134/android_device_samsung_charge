@@ -40,7 +40,7 @@ mkdir -p ../../../$OUTDIR
 
 # Prebuilt libraries that are needed to build open-source libraries
 PRODUCT_COPY_FILES += \\
-    $OUTDIR/proprietary/lib/libsecril-client.so:obj/lib/libsecrilclient.so \\
+    $OUTDIR/proprietary/lib/libsecril-client.so:obj/lib/libsecril-client.so \\
     $OUTDIR/proprietary/lib/libsec-ril40.so:obj/lib/libsec-ril40.so \\
     $OUTDIR/proprietary/lib/libsec-ril40-cdma.so:obj/lib/libsec-ril40-cdma.so
 
