@@ -93,6 +93,7 @@ BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/samsung/charge/vibrator/tspdrv
 
 TARGET_KERNEL_SOURCE := kernel/samsung/charge
 TARGET_KERNEL_CONFIG := charge_defconfig
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
 
 BOARD_KERNEL_CMDLINE := no_console_suspend=1 console=null
 BOARD_KERNEL_BASE := 0x02e00000
